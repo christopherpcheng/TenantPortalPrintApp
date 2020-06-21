@@ -25,8 +25,11 @@ namespace PrintApp.ViewModels
         private List<string> _PrintersL;
         public List<string> PrintersL 
         { 
-            get => _PrintersL; 
-            set => _PrintersL = value; 
+            get => _PrintersL;
+            set
+            {
+                _PrintersL = value;
+            }
         }
 
         public ReactiveCommand<Unit, PrinterItem> PrintCommand { get; }
