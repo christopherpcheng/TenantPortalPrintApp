@@ -28,7 +28,22 @@ namespace PrintApp.ViewModels
             get => _PrintersL;
             set
             {
-                _PrintersL = value;
+                if (_PrintersL != value)
+                {
+                    _PrintersL = value;
+                    //You can add stuff here to trigger on sets
+                }
+            }
+        }
+
+        private string _selectedName;
+        public string  SelectedName
+        {
+            get => _selectedName;
+            private set
+            {
+                SelectedPrinterName = value;
+                this.RaiseAndSetIfChanged(ref _selectedName, value);
             }
         }
 

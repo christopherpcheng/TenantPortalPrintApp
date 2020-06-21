@@ -10,7 +10,7 @@
             Command="{Binding PrintCommand2}">
       Print</Button>
     
-    <ComboBox DockPanel.Dock="Top" SelectedIndex="1" Items="{Binding PrintersL}">
+    <ComboBox DockPanel.Dock="Top"  Items="{Binding PrintersL, Mode=TwoWay}" SelectedItem="{Binding SelectedName}">
       <ComboBox.ItemTemplate>
         <DataTemplate>
           <TextBlock Text="{Binding}" />
