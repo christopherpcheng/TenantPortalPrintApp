@@ -5,7 +5,7 @@
         Icon="/Assets/avalonia-logo.ico"
         Width="400" Height="300"
         Title="PrintApp"
-        Content="{Binding PrinterListVM}">
+        Content="{Binding ContentVM}">
   
 
 </Window>
