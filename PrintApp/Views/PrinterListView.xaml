@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="300"
              x:Class="PrintApp.Views.PrinterListView">
-  <DockPanel>
+ <!--<DockPanel>
     <Button DockPanel.Dock="Bottom">Print</Button>
     <ItemsControl Items="{Binding Printers}">
       <ItemsControl.ItemTemplate>
@@ -15,6 +15,74 @@
         </DataTemplate>
       </ItemsControl.ItemTemplate>
     </ItemsControl>
-  </DockPanel>
+  </DockPanel>-->
+
+  <!--<DockPanel>
+    <Button DockPanel.Dock="Bottom">Print</Button>
+    <ItemsControl Items="{Binding Printers}" >
+      <ItemsControl.ItemTemplate>
+        <DataTemplate>
+          <RadioButton Margin="4" GroupName="1"
+                    Content="{Binding PrinterName}"/>
+        </DataTemplate>
+      </ItemsControl.ItemTemplate>
+    </ItemsControl>
+  </DockPanel>-->
+
+
+
+  <!--<DockPanel>
+    <Button DockPanel.Dock="Bottom">Print</Button>
+    <ComboBox Height="200" Items="{Binding Printers}"/>
+
+  </DockPanel>-->
+
+  <!--<StackPanel>
+    <ComboBox Height="100" Items="{Binding Printers}" SelectedIndex="1"/>
     
+
+    <Button>Print</Button>
+  </StackPanel>-->
+
+
+
+  <!--<StackPanel>
+    <ComboBox Height="100" Items="{Binding PrintersL}" SelectedIndex="1"/>
+    <Button>Print</Button>
+
+  </StackPanel>-->
+
+  <!--<StackPanel>
+    <ComboBox x:Name="fontComboBox"  SelectedIndex="0">
+      <ComboBox.ItemTemplate>
+        <DataTemplate>
+          <TextBlock Text="{Binding}" />
+        </DataTemplate>
+      </ComboBox.ItemTemplate>
+    </ComboBox>
+  </StackPanel>-->
+
+  <!--<StackPanel>
+    <ComboBox Height="100" Items="{Binding PrintersL}" SelectedIndex="1"/>
+    <Button>Print</Button>
+
+  </StackPanel>-->
+
+  <StackPanel>
+    <ComboBox Items="{Binding PrintersL}" SelectedIndex="1"/>
+    <Button>Print</Button>
+
+    <ComboBox SelectedIndex="1" Items="{Binding PrintersL}">
+      <ComboBox.ItemTemplate>
+        <DataTemplate>
+          <TextBlock Text="{Binding}" />
+        </DataTemplate>
+      </ComboBox.ItemTemplate>
+    </ComboBox>
+
+    <Button>Print</Button>
+
+  </StackPanel>
+
+
 </UserControl>
