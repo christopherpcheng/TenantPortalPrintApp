@@ -71,6 +71,11 @@ namespace PrintApp.ViewModels
             
 
         }
+
+        public void PrintIt()
+        {
+            Globals.Log("Print!");
+        }
     }
 
 
