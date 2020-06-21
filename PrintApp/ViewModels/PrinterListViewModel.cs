@@ -22,6 +22,7 @@ namespace PrintApp.ViewModels
                 PrintersL.Add(each.PrinterName);
             }
             
+            
         }
     }
 
