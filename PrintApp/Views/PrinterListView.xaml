@@ -7,7 +7,7 @@
 
   <DockPanel>
     <Button DockPanel.Dock="Bottom"
-            Command="{Binding PrintCommand}">
+            Command="{Binding PrintCommand2}">
       Print</Button>
     
     <ComboBox DockPanel.Dock="Top" SelectedIndex="1" Items="{Binding PrintersL}">

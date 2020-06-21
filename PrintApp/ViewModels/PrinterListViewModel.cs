@@ -24,7 +24,7 @@ namespace PrintApp.ViewModels
         public List<string> PrintersL { get; set; }
 
         public ReactiveCommand<Unit, PrinterItem> PrintCommand { get; }
-        public ReactiveCommand<Unit, Unit> PrintCommand2 { get; }
+        public ReactiveCommand<Unit, string> PrintCommand2 { get; }
 
         public PrinterListViewModel(IEnumerable<PrinterItem> printers)
         {
@@ -53,6 +53,29 @@ namespace PrintApp.ViewModels
                     Globals.Log($"Printer Selected: {SelectedPrinterName}");
 
                     Globals.Log($"Got:{model.PrinterName}");
+
+                }
+            }
+
+            );
+
+
+            PrintCommand2 = ReactiveCommand.Create(
+                () => "test!"
+                );  
+
+
+
+            PrintCommand2
+            .Take(2)
+            .Subscribe(model =>
+            {
+                if (model != null)
+                {
+                    Globals.Log("Print2!");
+                    Globals.Log($"Printer2 Selected: {SelectedPrinterName}");
+
+                    Globals.Log($"Got2:{model}");
 
                 }
             }
