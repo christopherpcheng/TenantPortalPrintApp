@@ -13,8 +13,8 @@ namespace PrintApp.ViewModels
     public class PrinterListViewModel : ViewModelBase
     {
         string selectedPrinterName;
-        public string SelectedPrinterName 
-        { 
+        public string SelectedPrinterName
+        {
             get => selectedPrinterName;
             set => this.RaiseAndSetIfChanged(ref selectedPrinterName, value);
         }
@@ -41,25 +41,23 @@ namespace PrintApp.ViewModels
                 () => new PrinterItem { PrinterName = SelectedPrinterName }
                 );
 
-            PrintCommand2 = ReactiveCommand.Create(() => { });
 
-            Observable.Merge(
-                PrintCommand,
-                PrintCommand2.Select(_ => (PrinterItem)null))
-                .Take(1)
-                .Subscribe(model =>
+
+            PrintCommand
+            .Take(2)
+            .Subscribe(model =>
+            {
+                if (model != null)
                 {
-                    if (model != null)
-                    {
-                        Globals.Log("Print!");
-                        Globals.Log($"Printer Selected: {SelectedPrinterName}");
+                    Globals.Log("Print!");
+                    Globals.Log($"Printer Selected: {SelectedPrinterName}");
 
-                        Globals.Log($"Got:{model.PrinterName}");
+                    Globals.Log($"Got:{model.PrinterName}");
 
-                    }
                 }
+            }
 
-                );
+            );
 
 
         }
@@ -68,14 +66,10 @@ namespace PrintApp.ViewModels
         {
             Globals.Log("Print!");
             Globals.Log($"Printer Selected: {SelectedPrinterName}");
-            
+
 
         }
 
-        public void PrintIt()
-        {
-            Globals.Log("Print!");
-        }
     }
 
 
