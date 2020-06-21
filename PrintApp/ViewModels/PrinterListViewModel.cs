@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 using PrintApp.Models;
+using PrintApp.Singleton;
+using Serilog;
 
 namespace PrintApp.ViewModels
 {
@@ -23,6 +25,11 @@ namespace PrintApp.ViewModels
             }
             
             
+        }
+
+        public void PrintIt()
+        {
+            Globals.Log("Print!");
         }
     }
 

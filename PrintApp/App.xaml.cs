@@ -2,6 +2,7 @@
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using PrintApp.Services;
+using PrintApp.Singleton;
 using PrintApp.ViewModels;
 using PrintApp.Views;
 
@@ -25,6 +26,8 @@ namespace PrintApp
                     DataContext = new MainWindowViewModel(pdb),
                 };
             }
+            ConsoleAllocator.ShowConsoleWindow();
+            Globals.Log("Start");
 
             base.OnFrameworkInitializationCompleted();
         }
