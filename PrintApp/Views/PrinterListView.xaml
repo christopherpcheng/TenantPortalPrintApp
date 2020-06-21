@@ -6,7 +6,9 @@
              x:Class="PrintApp.Views.PrinterListView">
 
   <DockPanel>
-    <Button DockPanel.Dock="Bottom">Print</Button>
+    <Button DockPanel.Dock="Bottom"
+            Command="{Binding PrintCommand}">
+      Print</Button>
     
     <ComboBox DockPanel.Dock="Top" SelectedIndex="1" Items="{Binding PrintersL}">
       <ComboBox.ItemTemplate>
