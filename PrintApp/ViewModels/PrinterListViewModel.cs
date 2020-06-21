@@ -12,8 +12,10 @@ namespace PrintApp.ViewModels
 {
     public class PrinterListViewModel : ViewModelBase
     {
+        public int SelectedIndex { get; set; } = 0;
+
         string selectedPrinterName;
-        public string SelectedPrinterName
+        public string SelectedPrinterName //Bound to XAML to trigger on selects
         {
             get => selectedPrinterName;
             set => this.RaiseAndSetIfChanged(ref selectedPrinterName, value);
@@ -47,13 +49,13 @@ namespace PrintApp.ViewModels
             }
         }
 
-        public ReactiveCommand<Unit, PrinterItem> PrintCommand { get; }
-        public ReactiveCommand<Unit, string> PrintCommand2 { get; }
+        public ReactiveCommand<Unit, PrinterItem> PrintCommand { get; } //object return
+        public ReactiveCommand<Unit, string> PrintCommand2 { get; } //string return sample
 
-
+        //Put stuff needed to return the result/output of return of button click command here
         public string TestM()
         {
-            Globals.Log($"1:{SelectedPrinterName}");
+            Globals.Log($"TestM Func:{SelectedPrinterName}");
             
             return "yay!";
         }
@@ -77,7 +79,7 @@ namespace PrintApp.ViewModels
 
 
             PrintCommand
-            .Take(2)
+            .Take(1)
             .Subscribe(model =>
             {
                 if (model != null)
@@ -92,20 +94,20 @@ namespace PrintApp.ViewModels
 
             );
 
-
+            //Instead of jamming all the code here to generate the expected return
+            //in anonymous func, you can reference a func directly
             PrintCommand2 = ReactiveCommand.Create(
                 () => TestM()
                 );  
 
-
-
             PrintCommand2
-            .Take(2)
-            .Subscribe(model =>
+            .Take(2) //takes 2 clicks
+            .Subscribe(model => //this is where the expected return generation happens
             {
+                //do whatever after button click and you have the expected return already
                 if (model != null)
                 {
-                    Globals.Log("Print2!");
+                    Globals.Log("Subs Print2!");
                     Globals.Log($"Printer2 Selected: {SelectedPrinterName}");
 
                     Globals.Log($"Got2:{model}");
@@ -118,6 +120,8 @@ namespace PrintApp.ViewModels
 
         }
 
+        //If I just wanted to directly Bind this as a Command to the button in XAML 
+        //without mucking with observable streams and stuff above
         public void PrintIt()
         {
             Globals.Log("Print!");
