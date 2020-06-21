@@ -1,6 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using PrintApp.Services;
 using PrintApp.ViewModels;
 using PrintApp.Views;
 
@@ -17,9 +18,11 @@ namespace PrintApp
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
+                var pdb = new PrinterDatabase();
+
                 desktop.MainWindow = new MainWindow
                 {
-                    DataContext = new MainWindowViewModel(),
+                    DataContext = new MainWindowViewModel(pdb),
                 };
             }
 
