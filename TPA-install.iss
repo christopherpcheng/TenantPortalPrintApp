@@ -13,9 +13,10 @@ Compression=lzma2
 ;Compression=none
 ;SolidCompression=yes
 DisableProgramGroupPage=yes
+OutputBaseFilename=SetupPrintApp
 
 [Files]
-Source: "D:\Kit\Work\Code\VS\Learn\TenantPortalPrintApp\PrintApp\bin\Release\netcoreapp3.1\publish\win-x86\PrintApp.exe"; DestDir: "{app}"
+Source: "PrintApp\bin\Release\netcoreapp3.1\publish\win-x86\PrintApp.exe"; DestDir: "{app}"; Flags: ignoreversion
 
 [Registry]
 Root: HKCR; Subkey: "ptapp"; ValueType: "string"; ValueData: "URL:ptapp Protocol" ; Flags: uninsdeletekey; Check: IsAdminInstallMode
