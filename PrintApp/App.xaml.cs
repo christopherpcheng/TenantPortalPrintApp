@@ -30,7 +30,8 @@ namespace PrintApp
             }
             base.OnFrameworkInitializationCompleted();
 
-            ConsoleAllocator.ShowConsoleWindow();
+            if (Globals.IsWindows()) ConsoleAllocator.ShowConsoleWindow();
+
             Globals.Log($"Start {Globals.GetBuildDate(Assembly.GetExecutingAssembly()).ToString()}");
             PrepFileURL();
             FileTools.Instance.ProcessLink(Globals.URLToFile);

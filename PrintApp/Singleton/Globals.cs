@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace PrintApp.Singleton
@@ -37,6 +38,20 @@ namespace PrintApp.Singleton
         {
             Console.WriteLine(text);
         }
+
+        public static bool IsWindows()
+        {
+            return System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+        }
+        public static bool IsOSX()
+        {
+            return System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
+        }
+        public static bool IsLinux()
+        {
+            return System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
+        }
+
 
         public static DateTime GetBuildDate(Assembly assembly)
         {

@@ -138,7 +138,7 @@ namespace PrintApp.ViewModels
 
             );
 
-            SelectedIndex = PrintersL.IndexOf(PrinterTools.GetDefaultPrinter());
+            if (Globals.IsWindows()) SelectedIndex = PrintersL.IndexOf(PrinterTools.GetDefaultPrinter());
 
 
 
