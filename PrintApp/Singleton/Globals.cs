@@ -18,9 +18,11 @@ namespace PrintApp.Singleton
 
         public static string[] BADPRINTERS =
         {
+#if !DEBUG            
             "pdf",
             "xps",
             "onenote"
+#endif
         };
 
         private Globals() { }

@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Text;
+using Avalonia;
 using PrintApp.Models;
 using PrintApp.Singleton;
 using ReactiveUI;
@@ -89,6 +90,11 @@ namespace PrintApp.ViewModels
 
                     Globals.Log($"Got:{model.PrinterName}");
 
+                    PrinterTools.PrintPDF(SelectedPrinterName, Globals.FileToPrint);
+
+                    Environment.Exit(0);
+
+
                 }
             }
 
@@ -116,6 +122,9 @@ namespace PrintApp.ViewModels
             }
 
             );
+
+            SelectedIndex = PrintersL.IndexOf(PrinterTools.GetDefaultPrinter());
+
 
 
         }
