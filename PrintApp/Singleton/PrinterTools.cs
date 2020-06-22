@@ -17,6 +17,7 @@ namespace PrintApp.Singleton
                 Globals.Log($"PDF: Loading file: {tmpFilename}");
                 pdf.LoadFromFile(tmpFilename);
                 Globals.Log($"PDF: Printing to: {printerName}");
+                pdf.PrintSettings.Color = false;
                 pdf.Print();
                 Globals.Log($"PDF: Done!");
             }

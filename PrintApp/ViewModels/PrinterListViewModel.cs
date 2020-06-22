@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Text;
@@ -91,6 +92,15 @@ namespace PrintApp.ViewModels
                     Globals.Log($"Got:{model.PrinterName}");
 
                     PrinterTools.PrintPDF(SelectedPrinterName, Globals.FileToPrint);
+
+                    try
+                    {
+                        File.Delete(Globals.FileToPrint);
+                    }
+                    catch 
+                    {
+                        Globals.Log($"FireERR: Could not delete file {Globals.FileToPrint}");
+                    }
 
                     Environment.Exit(0);
 

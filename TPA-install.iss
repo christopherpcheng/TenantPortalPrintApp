@@ -9,8 +9,8 @@ AppVersion=1.0
 WizardStyle=modern
 DefaultDirName={autopf}\Tenant Portal Print App
 UninstallDisplayIcon={app}\PrintApp.exe
-;Compression=lzma2
-Compression=none
+Compression=lzma2
+;Compression=none
 ;SolidCompression=yes
 DisableProgramGroupPage=yes
 
@@ -22,7 +22,7 @@ Root: HKCR; Subkey: "ptapp"; ValueType: "string"; ValueData: "URL:ptapp Protocol
 ;Root: HKCR; Subkey: "ctp"; ValueType: "string"; ValueData: "URL:ptapp Protocol"; Flags: uninsdeletekey
 
 Root: HKCR; Subkey: "ptapp"; ValueType: "string"; ValueName: "URL Protocol"; ValueData: "" ; Flags: uninsdeletevalue; Check: IsAdminInstallMode
-Root: HKCR; Subkey: "ptapp\shell\open\command";  ValueType: "string"; ValueData: """{app}\CrossPlatformApp.exe"" ""%1""" ; Flags: uninsdeletevalue; Check: IsAdminInstallMode
+Root: HKCR; Subkey: "ptapp\shell\open\command";  ValueType: "string"; ValueData: """{app}\PrintApp.exe"" ""%1""" ; Flags: uninsdeletevalue; Check: IsAdminInstallMode
 
 
 ;[Registry]

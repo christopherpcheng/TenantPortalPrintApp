@@ -5,8 +5,10 @@
         Icon="/Assets/avalonia-logo.ico"
         Width="400" Height="300" 
         WindowStartupLocation="CenterScreen" 
+        CanResize="False"
         Title="Tenant Portal Print App"
-        Content="{Binding ContentVM}">
+        Content="{Binding ContentVM}"
+        >
   
 
 </Window>
