@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "PrintApp": {
+      "commandName": "Project",
+      "commandLineArgs": "ptapp://mobilegroupinc.com/resources/pdf/0000000208.pdf"
+    }
+  }
+}

@@ -3,8 +3,9 @@
         xmlns:views="clr-namespace:PrintApp.Views"
         x:Class="PrintApp.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
-        Width="400" Height="300"
-        Title="PrintApp"
+        Width="400" Height="300" 
+        WindowStartupLocation="CenterScreen" 
+        Title="Tenant Portal Print App"
         Content="{Binding ContentVM}">
   
 

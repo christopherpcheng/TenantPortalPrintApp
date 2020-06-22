@@ -5,19 +5,27 @@
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="300"
              x:Class="PrintApp.Views.PrinterListView">
 
-  <DockPanel>
-    <Button DockPanel.Dock="Bottom"
-            Command="{Binding PrintIt}">
-      Print</Button>
+  <StackPanel>
+
+    <TextBlock FontWeight="Bold" 
+               Height="20" 
+               TextAlignment="Center" 
+               Text="Select your printer"/>
     
-    <ComboBox DockPanel.Dock="Top"  Items="{Binding PrintersL}" SelectedItem="{Binding SelectedName}" SelectedIndex="{Binding SelectedIndex}">
+    <ComboBox Items="{Binding PrintersL}" 
+              SelectedItem="{Binding SelectedName}" 
+              SelectedIndex="{Binding SelectedIndex}">
       <ComboBox.ItemTemplate>
         <DataTemplate>
           <TextBlock Text="{Binding}" />
         </DataTemplate>
       </ComboBox.ItemTemplate>
     </ComboBox>
-  </DockPanel>
+
+    <Button Command="{Binding PrintCommand}" >
+      Print</Button>
+    
+  </StackPanel>
 
 
 </UserControl>

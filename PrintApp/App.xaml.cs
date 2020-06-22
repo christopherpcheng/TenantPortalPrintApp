@@ -5,6 +5,7 @@ using PrintApp.Services;
 using PrintApp.Singleton;
 using PrintApp.ViewModels;
 using PrintApp.Views;
+using System;
 
 namespace PrintApp
 {
@@ -26,10 +27,42 @@ namespace PrintApp
                     DataContext = new MainWindowViewModel(pdb),
                 };
             }
+            base.OnFrameworkInitializationCompleted();
+
             ConsoleAllocator.ShowConsoleWindow();
             Globals.Log("Start");
+            PrepFileURL();
+            FileTools.Instance.ProcessLink(Globals.URLToFile);
 
-            base.OnFrameworkInitializationCompleted();
+
+
+        }
+
+        private void PrepFileURL()
+        {
+            string[] args = Environment.GetCommandLineArgs();
+
+            try
+            {
+                int i = 0;
+                foreach (var param in args)
+                {
+                    if (i == args.Length - 1)
+                    {
+                        Globals.Log($"DEBUG ARGS({i}): {param}");
+                        Globals.URLToFile = param;
+                        
+                    }
+                    i++;
+
+                }
+            }
+            catch (Exception e)
+            {
+                Globals.Log($"Exception: {e.Message}");
+            }
+
+
         }
     }
 }

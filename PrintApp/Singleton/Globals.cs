@@ -16,6 +16,13 @@ namespace PrintApp.Singleton
         public static string PROTOCOL_HTTP = "http://";
         public static string PROTOCOL_HTTPS = "https://";
 
+        public static string[] BADPRINTERS =
+        {
+            "pdf",
+            "xps",
+            "onenote"
+        };
+
         private Globals() { }
         static Globals()
         {
