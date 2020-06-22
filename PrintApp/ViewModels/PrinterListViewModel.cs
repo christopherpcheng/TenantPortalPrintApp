@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Reactive;
 using System.Reactive.Linq;
+using System.Reflection;
 using System.Text;
 using Avalonia;
 using PrintApp.Models;
@@ -14,6 +15,8 @@ namespace PrintApp.ViewModels
 {
     public class PrinterListViewModel : ViewModelBase
     {
+        public string Version { get; }
+
         public int SelectedIndex { get; set; } = 0;
 
         string selectedPrinterName;
@@ -65,6 +68,8 @@ namespace PrintApp.ViewModels
 
         public PrinterListViewModel(IEnumerable<PrinterItem> printers)
         {
+            Version = Globals.GetBuildDate(Assembly.GetExecutingAssembly()).ToString();
+
             Printers = new ObservableCollection<PrinterItem>(printers);
 
             PrintersL = new List<string>();

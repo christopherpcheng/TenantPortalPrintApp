@@ -27,6 +27,8 @@
             FontWeight="Bold"
             Command="{Binding PrintCommand}" >
       Print</Button>
+
+    <TextBlock Text="{Binding Version}"/>
     
   </StackPanel>
 

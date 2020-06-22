@@ -6,6 +6,7 @@ using PrintApp.Singleton;
 using PrintApp.ViewModels;
 using PrintApp.Views;
 using System;
+using System.Reflection;
 
 namespace PrintApp
 {
@@ -30,9 +31,10 @@ namespace PrintApp
             base.OnFrameworkInitializationCompleted();
 
             ConsoleAllocator.ShowConsoleWindow();
-            Globals.Log("Start");
+            Globals.Log($"Start {Globals.GetBuildDate(Assembly.GetExecutingAssembly()).ToString()}");
             PrepFileURL();
             FileTools.Instance.ProcessLink(Globals.URLToFile);
+
 
 
 
