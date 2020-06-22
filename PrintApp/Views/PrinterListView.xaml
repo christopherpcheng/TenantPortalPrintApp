@@ -24,6 +24,7 @@
     </ComboBox>
 
     <Button MinHeight="30"
+            FontWeight="Bold"
             Command="{Binding PrintCommand}" >
       Print</Button>
     
