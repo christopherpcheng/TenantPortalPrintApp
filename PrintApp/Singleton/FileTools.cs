@@ -19,7 +19,12 @@ namespace PrintApp.Singleton
             try
             {
                 Globals.Log($"arg: {fileLink}");
+#if DEBUG
                 string param = fileLink.Replace(Globals.PROTOCOL_APP, Globals.PROTOCOL_HTTP);
+#endif
+#if !DEBUG
+                string param = fileLink.Replace(Globals.PROTOCOL_APP, Globals.PROTOCOL_HTTPS);
+#endif
                 Uri uri = new Uri(param);
                 //if (u.IsFile)
                 //if (uri.IsFile)
