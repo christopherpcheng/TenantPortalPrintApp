@@ -2,7 +2,7 @@
   "profiles": {
     "PrintApp": {
       "commandName": "Project",
-      "commandLineArgs": "ptapp://mobilegroupinc.com/resources/pdf/test.pdf ptapp://mobilegroupinc.com/resources/pdf/0000000208.pdf"
+      "commandLineArgs": "rtenant-portal://mobilegroupinc.com/resources/pdf/test.pdf rtenant-portal://mobilegroupinc.com/resources/pdf/0000000208.pdf"
     }
   }
 }
