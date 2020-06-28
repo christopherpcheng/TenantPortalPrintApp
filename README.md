@@ -1,7 +1,7 @@
 # TenantPortalPrintApp
 
 
-##Info.plist before the last closing </dict>
+## Info.plist before the last closing </dict>
 
 ```
     <key>CFBundleIdentifier</key>
@@ -19,7 +19,7 @@
     </array>	
 ```
 
-##OSX Build commands from the project folder 
+## OSX Build commands from the project folder 
 (Requires DotNet.Bundle)
 
 ```
@@ -27,13 +27,13 @@ dotnet restore -r osx-x64
 dotnet msbuild -t:BundleApp -p:RuntimeIdentifier=osx-x64 -property:Configuration=Release 
 ```
 
-##OSX commands
+## OSX commands
 
-###Chmod for execution 
+### Chmod for execution 
 ```
 chmod +x Print\ App.app/Contents/MacOS/PrintApp
 ```
-###Removal of registered URI
+### Removal of registered URI
 ```
 /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -dump | grep "rtenant"
 /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -u /Users/mobilegroupinc/Desktop/prt/Print\ App.app
