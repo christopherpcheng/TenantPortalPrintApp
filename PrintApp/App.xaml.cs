@@ -43,6 +43,11 @@ namespace PrintApp
 
         }
 
+        private string SanitizeInput(string param)
+        {
+            return param;
+        }
+
         private void PrepFileURL()
         {
             string[] args = Environment.GetCommandLineArgs();
@@ -50,16 +55,31 @@ namespace PrintApp
             try
             {
                 int i = 0;
-                foreach (var param in args)
+                int expectedCount = 0;
+#if !DEBUG
+                expectedCount = 1;
+#endif
+#if DEBUG                
+                expectedCount = 2;
+#endif
+                if (args.Length == expectedCount)
                 {
-                    if (i == args.Length - 1)
+                    foreach (var param in args)
                     {
-                        Globals.Log($"DEBUG ARGS({i}): {param}");
-                        Globals.URLToFile = param;
-                        
-                    }
-                    i++;
+                        if (i == args.Length - 1)
+                        {
+                            string p = SanitizeInput(param);
+                            Globals.Log($"DEBUG ARGS({i}): {p}");
+                            Globals.URLToFile = p;
 
+                        }
+                        i++;
+
+                    }
+                }
+                else
+                {
+                    Environment.Exit(1);
                 }
             }
             catch (Exception e)

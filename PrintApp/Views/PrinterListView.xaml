@@ -13,13 +13,13 @@
                Background="Red"
                Text="Select your printer"/>
     
-    <ComboBox MinHeight="20"
+    <ComboBox MinHeight="30"
               Items="{Binding PrintersL}" 
               SelectedItem="{Binding SelectedName}" 
               SelectedIndex="{Binding SelectedIndex}">
       <ComboBox.ItemTemplate>
         <DataTemplate>
-          <TextBlock MinHeight="20" Text="{Binding}" />
+          <TextBlock MinHeight="30" Text="{Binding}" />
         </DataTemplate>
       </ComboBox.ItemTemplate>
     </ComboBox>
@@ -31,7 +31,7 @@
             Command="{Binding PrintCommand}" >
       Print</Button>
 
-    <TextBlock Height="20"
+    <TextBlock Height="25"
                Text="{Binding Version}"/>
     
   </StackPanel>
