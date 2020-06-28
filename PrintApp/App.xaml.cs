@@ -30,6 +30,7 @@ namespace PrintApp
             }
             base.OnFrameworkInitializationCompleted();
 
+
 #if DEBUG
             if (Globals.IsWindows()) ConsoleAllocator.ShowConsoleWindow();
 #endif
@@ -57,12 +58,12 @@ namespace PrintApp
                 int i = 0;
                 int expectedCount = 0;
 #if !DEBUG
-                expectedCount = 1;
+//                expectedCount = 1;
 #endif
 #if DEBUG                
-                expectedCount = 2;
+//                expectedCount = 2;
 #endif
-                if (args.Length == expectedCount)
+                if (args.Length >= expectedCount)
                 {
                     foreach (var param in args)
                     {

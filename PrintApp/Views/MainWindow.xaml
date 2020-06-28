@@ -3,7 +3,7 @@
         xmlns:views="clr-namespace:PrintApp.Views"
         x:Class="PrintApp.Views.MainWindow"
         Icon="/Assets/robinsons.ico"
-        Width="400" Height="100" 
+        Width="400" Height="120" MaxWidth="400" MaxHeight="120"
         WindowStartupLocation="CenterScreen" 
         CanResize="False"
         Title="Tenant Portal Print App"

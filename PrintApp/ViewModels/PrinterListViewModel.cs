@@ -15,7 +15,7 @@ namespace PrintApp.ViewModels
 {
     public class PrinterListViewModel : ViewModelBase
     {
-        public string Version { get; }
+        public string Version { get; set; }
 
         public int SelectedIndex { get; set; } = 0;
 
@@ -89,6 +89,13 @@ namespace PrintApp.ViewModels
             .Take(1)
             .Subscribe(model =>
             {
+                /*
+                Version = "Test" + Globals.URLToFile;
+                Console.WriteLine("WTF"+Globals.URLToFile);
+                Console.ReadLine();
+                Environment.Exit(1);
+                */
+
                 if (model != null)
                 {
                     Globals.Log("Print!");
