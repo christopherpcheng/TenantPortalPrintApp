@@ -12,7 +12,7 @@
     <CFBundlePackageType>AAPL</CFBundlePackageType>
     <CFBundleSignature>????</CFBundleSignature>
     <CFBundleExecutable>PrintApp</CFBundleExecutable>
-    <CFBundleIconFile>PrintApp.icns</CFBundleIconFile> <!-- Will be copied from output directory -->
+    <CFBundleIconFile>robinsons.ico</CFBundleIconFile> <!-- Will be copied from output directory -->
     <NSPrincipalClass>NSApplication</NSPrincipalClass>
     <NSHighResolutionCapable>true</NSHighResolutionCapable>
     

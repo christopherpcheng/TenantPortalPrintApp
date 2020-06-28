@@ -8,27 +8,31 @@
   <StackPanel>
 
     <TextBlock FontWeight="Bold" 
-               MinHeight="30" 
+               MinHeight="20" 
                TextAlignment="Center" 
+               Background="Red"
                Text="Select your printer"/>
     
-    <ComboBox MinHeight="30"
+    <ComboBox MinHeight="20"
               Items="{Binding PrintersL}" 
               SelectedItem="{Binding SelectedName}" 
               SelectedIndex="{Binding SelectedIndex}">
       <ComboBox.ItemTemplate>
         <DataTemplate>
-          <TextBlock MinHeight="30" Text="{Binding}" />
+          <TextBlock MinHeight="20" Text="{Binding}" />
         </DataTemplate>
       </ComboBox.ItemTemplate>
     </ComboBox>
 
-    <Button MinHeight="30"
+    <Button MinHeight="40"
             FontWeight="Bold"
+            Background="Red"
+            Foreground="White"
             Command="{Binding PrintCommand}" >
       Print</Button>
 
-    <TextBlock Text="{Binding Version}"/>
+    <TextBlock Height="20"
+               Text="{Binding Version}"/>
     
   </StackPanel>
 
