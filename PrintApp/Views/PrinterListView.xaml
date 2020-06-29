@@ -34,6 +34,9 @@
     <TextBlock Height="25"
                Text="{Binding Version}"/>
     
+    <TextBox x:Name="debugTextBox">
+    </TextBox>
+    
   </StackPanel>
 
 

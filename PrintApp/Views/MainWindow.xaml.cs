@@ -1,6 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using PrintApp.Singleton;
 
 namespace PrintApp.Views
 {
@@ -12,6 +13,7 @@ namespace PrintApp.Views
 #if DEBUG
             this.AttachDevTools();
 #endif
+
         }
 
         private void InitializeComponent()

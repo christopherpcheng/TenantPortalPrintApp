@@ -1,6 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using PrintApp.Singleton;
 using System;
 using System.Collections.Generic;
 
@@ -11,11 +12,13 @@ namespace PrintApp.Views
         public PrinterListView()
         {
             this.InitializeComponent();
-            
+
+
             //var fontComboBox = this.Find<ComboBox>("fontComboBox");
             //fontComboBox.Items = new List<string> { "a","b","c"};
             
             //fontComboBox.SelectedIndex = 0;
+            
 
         }
 

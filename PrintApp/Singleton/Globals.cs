@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Avalonia.Controls;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
@@ -10,6 +11,7 @@ namespace PrintApp.Singleton
     public sealed class Globals
     {
         public static Globals Instance { get; private set; }
+        public static ListBox DebugListBox { get; set; }
 
         public static string FileToPrint { get; set; } = string.Empty;
         public static string URLToFile { get; set; } = string.Empty;
@@ -37,6 +39,11 @@ namespace PrintApp.Singleton
         public static void Log(string text)
         {
             Console.WriteLine(text);
+            if (DebugListBox != null)
+            {
+                DebugListBox.Items.Add("");
+            }
+
         }
 
         public static bool IsWindows()
