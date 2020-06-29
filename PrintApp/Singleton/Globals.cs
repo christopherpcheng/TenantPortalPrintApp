@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Serilog;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
@@ -51,6 +52,7 @@ namespace PrintApp.Singleton
         {
             return System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
         }
+
 
 
         public static DateTime GetBuildDate(Assembly assembly)

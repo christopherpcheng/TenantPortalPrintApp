@@ -5,7 +5,9 @@ using PrintApp.Services;
 using PrintApp.Singleton;
 using PrintApp.ViewModels;
 using PrintApp.Views;
+using Serilog;
 using System;
+using System.Diagnostics;
 using System.Reflection;
 
 namespace PrintApp
@@ -34,6 +36,7 @@ namespace PrintApp
 #if DEBUG
             if (Globals.IsWindows()) ConsoleAllocator.ShowConsoleWindow();
 #endif
+            InitLogging();
 
             Globals.Log($"Start {Globals.GetBuildDate(Assembly.GetExecutingAssembly())}");
             PrepFileURL();
@@ -42,6 +45,20 @@ namespace PrintApp
 
 
 
+        }
+
+        public void InitLogging()
+        {
+            Log.Logger = new LoggerConfiguration().CreateLogger();
+            Log.Information("No one listens to me!");
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.Console()
+                .WriteTo.File("log-.txt",rollingInterval:RollingInterval.Day)
+                //.WriteTo.File("rtp-log.txt",
+                //    outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}")
+                .CreateLogger();
+
+            Log.Information("Ah, there you are!");
         }
 
         private string SanitizeInput(string param)

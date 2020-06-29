@@ -4,14 +4,14 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <SourceRevisionId>build$([System.DateTime]::UtcNow.ToString("yyyyMMddHHmmss"))</SourceRevisionId>
     
-    <CFBundleName>PrintApp</CFBundleName> <!-- Also defines .app file name -->
-    <CFBundleDisplayName>Print App</CFBundleDisplayName>
+    <CFBundleName>RTPPrintApp</CFBundleName> <!-- Also defines .app file name -->
+    <CFBundleDisplayName>RTPPrintApp</CFBundleDisplayName>
     <CFBundleIdentifier>com.mobilegroupinc.printapp</CFBundleIdentifier>
     <CFBundleVersion>1.0.0</CFBundleVersion>
     <CFBundleShortVersionString>1.0.0</CFBundleShortVersionString>
     <CFBundlePackageType>AAPL</CFBundlePackageType>
     <CFBundleSignature>????</CFBundleSignature>
-    <CFBundleExecutable>PrintApp</CFBundleExecutable>
+    <CFBundleExecutable>RTPPrintApp</CFBundleExecutable>
     <CFBundleIconFile>robinsons.ico</CFBundleIconFile> <!-- Will be copied from output directory -->
     <NSPrincipalClass>NSApplication</NSPrincipalClass>
     <NSHighResolutionCapable>true</NSHighResolutionCapable>
@@ -33,6 +33,9 @@
     <PackageReference Include="Avalonia.ReactiveUI" Version="0.9.10" />
     <PackageReference Include="Dotnet.Bundle" Version="0.9.13" />
     <PackageReference Include="FreeSpire.PDF" Version="6.2.0" />
+    <PackageReference Include="Serilog" Version="2.9.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
+    <PackageReference Include="Serilog.Sinks.File" Version="4.1.0" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Views\PrinterListView.xaml">

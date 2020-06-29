@@ -8,22 +8,22 @@ AppName=Tenant Portal Print App
 AppVersion=1.0
 WizardStyle=modern
 DefaultDirName={autopf}\Tenant Portal Print App
-UninstallDisplayIcon={app}\PrintApp.exe
+UninstallDisplayIcon={app}\RTPPrintApp.exe
 Compression=lzma2
 ;Compression=none
 ;SolidCompression=yes
 DisableProgramGroupPage=yes
-OutputBaseFilename=SetupPrintApp
+OutputBaseFilename=SetupRTPPrintApp
 
 [Files]
-Source: "PrintApp\bin\Release\netcoreapp3.1\publish\win-x86\PrintApp.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "PrintApp\bin\Release\netcoreapp3.1\publish\win-x86\RTPPrintApp.exe"; DestDir: "{app}"; Flags: ignoreversion
 
 [Registry]
 Root: HKCR; Subkey: "rtenant-portal"; ValueType: "string"; ValueData: "URL:rtenant-portal Protocol" ; Flags: uninsdeletekey; Check: IsAdminInstallMode
 ;Root: HKCR; Subkey: "ctp"; ValueType: "string"; ValueData: "URL:ptapp Protocol"; Flags: uninsdeletekey
 
 Root: HKCR; Subkey: "rtenant-portal"; ValueType: "string"; ValueName: "URL Protocol"; ValueData: "" ; Flags: uninsdeletevalue; Check: IsAdminInstallMode
-Root: HKCR; Subkey: "rtenant-portal\shell\open\command";  ValueType: "string"; ValueData: """{app}\PrintApp.exe"" ""%1""" ; Flags: uninsdeletevalue; Check: IsAdminInstallMode
+Root: HKCR; Subkey: "rtenant-portal\shell\open\command";  ValueType: "string"; ValueData: """{app}\RTPPrintApp.exe"" ""%1""" ; Flags: uninsdeletevalue; Check: IsAdminInstallMode
 
 
 ;[Registry]

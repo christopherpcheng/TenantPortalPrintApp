@@ -68,7 +68,22 @@ namespace PrintApp.ViewModels
 
         public PrinterListViewModel(IEnumerable<PrinterItem> printers)
         {
-            Version = "Build:"+Globals.GetBuildDate(Assembly.GetExecutingAssembly()).ToString();
+            //Version = "Build:"+Globals.GetBuildDate(Assembly.GetExecutingAssembly()).ToString();
+            
+            try
+            {
+                string[] args = Environment.GetCommandLineArgs();
+                foreach (var param in args)
+                {
+                    Version = Version + param +" || ";
+                }
+                
+            }
+            catch(Exception ex)
+            {
+                Version = "Err:"+ex.Message;
+            }
+
 
             Printers = new ObservableCollection<PrinterItem>(printers);
 
