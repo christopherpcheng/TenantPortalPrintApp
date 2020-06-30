@@ -36,12 +36,16 @@ namespace PrintApp
 #if DEBUG
             if (Globals.IsWindows()) ConsoleAllocator.ShowConsoleWindow();
 #endif
+
+//            PrinterTools.PrintPDFCLI2("","");
+
             InitLogging();
 
             Globals.Log($"Start {Globals.GetBuildDate(Assembly.GetExecutingAssembly())}");
             PrepFileURL();
             FileTools.Instance.ProcessLink(Globals.URLToFile);
 
+//            PrinterTools.PrintPDFCLI2("", "");
 
 
 

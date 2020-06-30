@@ -118,11 +118,16 @@ namespace PrintApp.ViewModels
 
                     Globals.Log($"Got:{model.PrinterName}");
 
+                    //PrinterTools.PrintPDFCLI2("", "");
+
                     PrinterTools.PrintPDF(SelectedPrinterName, Globals.FileToPrint);
+
+                    //PrinterTools.PrintPDFCLI3("", Globals.FileToPrint);
 
                     try
                     {
-                        File.Delete(Globals.FileToPrint);
+                        //File.Delete(Globals.FileToPrint);
+
                     }
                     catch 
                     {
@@ -170,9 +175,9 @@ namespace PrintApp.ViewModels
         //without mucking with observable streams and stuff above
         public void PrintIt()
         {
-            Globals.Log("Print!");
+            Globals.Log("Print No Nonsense!");
             Globals.Log($"Printer Selected: {SelectedPrinterName}");
-
+            PrinterTools.PrintPDFCLI2("", "");
 
         }
 

@@ -29,6 +29,8 @@
             Background="Red"
             Foreground="White"
             Command="{Binding PrintCommand}" >
+      <!--Command="{Binding PrintIt}" >-->
+
       Print</Button>
 
     <TextBlock Height="25"
