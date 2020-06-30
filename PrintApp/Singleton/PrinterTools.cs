@@ -35,9 +35,11 @@ namespace PrintApp.Singleton
             Globals.Log($"PRINTING CLI! {printerName} and {tmpFilename}");
             try
             {
+                int timeOut = 60000; //5 seconds = 5000
+
                 var process = new Process();
                 process.StartInfo.FileName = "lpr";
-                process.StartInfo.Arguments = $"-P \"{printerName}\"  -T \"Billing\" \"{tmpFilename}\"";
+                process.StartInfo.Arguments = $"-P \"{printerName}\"  -T \"{Globals.PRINTJOB_NAME}\" \"{tmpFilename}\"";
                 process.StartInfo.CreateNoWindow = true;
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.RedirectStandardOutput = true;
@@ -49,6 +51,17 @@ namespace PrintApp.Singleton
                     Globals.Log(data.Data);
                 };
                 process.Start();
+
+                //process.WaitForInputIdle();
+                process.WaitForExit(timeOut);
+                if (process.HasExited == false)
+                {
+                    if (process.Responding)
+                        process.CloseMainWindow();
+                    else
+                        process.Kill();
+                }
+                Globals.Log("PrintCLI Continue");
 
             }
             catch (Exception e)

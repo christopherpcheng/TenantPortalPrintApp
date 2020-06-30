@@ -20,6 +20,8 @@ namespace PrintApp.Singleton
         public static string PROTOCOL_HTTP = "http://";
         public static string PROTOCOL_HTTPS = "https://";
 
+        public static string PRINTJOB_NAME = "Billing";
+
         public static string[] BADPRINTERS =
         {
 #if !DEBUG            

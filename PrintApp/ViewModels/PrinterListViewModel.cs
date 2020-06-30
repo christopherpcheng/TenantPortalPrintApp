@@ -126,7 +126,8 @@ namespace PrintApp.ViewModels
 
                     try
                     {
-                        //File.Delete(Globals.FileToPrint);
+                        Globals.Log("Cleanup");
+                        File.Delete(Globals.FileToPrint);
 
                     }
                     catch 
