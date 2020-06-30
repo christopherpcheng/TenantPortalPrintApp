@@ -39,7 +39,7 @@ namespace PrintApp
 
 //            PrinterTools.PrintPDFCLI2("","");
 
-            InitLogging();
+//            InitLogging();
 
             Globals.Log($"Start {Globals.GetBuildDate(Assembly.GetExecutingAssembly())}");
             PrepFileURL();

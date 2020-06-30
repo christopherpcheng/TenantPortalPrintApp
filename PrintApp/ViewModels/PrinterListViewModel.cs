@@ -68,8 +68,8 @@ namespace PrintApp.ViewModels
 
         public PrinterListViewModel(IEnumerable<PrinterItem> printers)
         {
-            //Version = "Build:"+Globals.GetBuildDate(Assembly.GetExecutingAssembly()).ToString();
-            
+            Version = "Build:"+Globals.GetBuildDate(Assembly.GetExecutingAssembly()).ToString();
+            /*
             try
             {
                 string[] args = Environment.GetCommandLineArgs();
@@ -83,7 +83,7 @@ namespace PrintApp.ViewModels
             {
                 Version = "Err:"+ex.Message;
             }
-
+            */
 
             Printers = new ObservableCollection<PrinterItem>(printers);
 
@@ -94,8 +94,15 @@ namespace PrintApp.ViewModels
                 PrintersL.Add(each.PrinterName);
             }
 
+            var okEnabled = this.WhenAnyValue(
+                x => x.SelectedName,
+                x => !string.IsNullOrWhiteSpace(x)
+                );
+
+
             PrintCommand = ReactiveCommand.Create(
-                () => new PrinterItem { PrinterName = SelectedPrinterName }
+                () => new PrinterItem { PrinterName = SelectedPrinterName },
+                okEnabled
                 );
 
 
@@ -166,6 +173,7 @@ namespace PrintApp.ViewModels
 
             );
 
+            //SelectedIndex = -1;
             SelectedIndex = PrintersL.IndexOf(PrinterTools.GetDefaultPrinter());
 
 
