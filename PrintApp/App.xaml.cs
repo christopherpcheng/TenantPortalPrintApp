@@ -43,7 +43,10 @@ namespace PrintApp
 
             Globals.Log($"Start {Globals.GetBuildDate(Assembly.GetExecutingAssembly())}");
             PrepFileURL();
-            FileTools.Instance.ProcessLink(Globals.URLToFile);
+            if (!FileTools.Instance.ProcessLink(Globals.URLToFile))
+            {
+                Environment.Exit(1);
+            }
 
 //            PrinterTools.PrintPDFCLI2("", "");
 
@@ -79,12 +82,20 @@ namespace PrintApp
                 int i = 0;
                 int expectedCount = 0;
 #if !DEBUG
-//                expectedCount = 1;
+                if (Globals.IsWindows())
+                {
+                    expectedCount = 1;
+                }
+                else if (Globals.IsOSX())
+                {
+                    expectedCount = 2;
+
+                }
 #endif
 #if DEBUG                
-//                expectedCount = 2;
+                expectedCount = args.Length;
 #endif
-                if (args.Length >= expectedCount)
+                if (args.Length == expectedCount)
                 {
                     foreach (var param in args)
                     {

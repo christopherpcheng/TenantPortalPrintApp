@@ -15,6 +15,47 @@ namespace PrintApp.Singleton
 
         static HTTPTools() { Instance = new HTTPTools(); }
 
+        public bool ValidateURL(string param)
+        {
+            if (param.StartsWith(Globals.PROTOCOL_HTTP) || param.StartsWith(Globals.PROTOCOL_HTTPS))
+            {
+                Uri uri = new Uri(Uri.EscapeUriString(param));
+                //Uri uri = new Uri(param);
+
+                if (!param.EndsWith(".pdf"))
+                {
+                    return false;
+                }
+
+                if (!param.Contains("mobilegroupinc.com/") &&
+                    !param.Contains("tenantsportal.robinsonsland.com/")
+                    )
+                {
+                    return false;
+                }
+
+                if (param.Contains("&") || 
+                    param.Contains(";") ||
+                    param.Contains("@") ||
+                    param.Contains("'") || 
+                    param.Contains("\"") ||
+                    param.Contains(" "))
+                {
+                    return false;
+                }
+
+                if (uri.IsWellFormedOriginalString() && Uri.IsWellFormedUriString(
+                           Uri.UnescapeDataString(param),
+                           UriKind.Absolute))
+                {
+                    return true;
+                }
+
+            }
+            return false;
+
+        }
+
         // API method:
         public string DownloadFile(string fileLink)
         {
