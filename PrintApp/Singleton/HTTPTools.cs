@@ -26,18 +26,20 @@ namespace PrintApp.Singleton
                 {
                     return false;
                 }
-
+/*
                 if (!param.Contains("mobilegroupinc.com/") &&
                     !param.Contains("tenantsportal.robinsonsland.com/")
                     )
                 {
                     return false;
                 }
-
+*/
                 if (param.Contains("&") || 
                     param.Contains(";") ||
                     param.Contains("@") ||
-                    param.Contains("'") || 
+                    param.Contains("'") ||
+                    param.Contains("<") ||
+                    param.Contains(">") ||
                     param.Contains("\"") ||
                     param.Contains(" "))
                 {
