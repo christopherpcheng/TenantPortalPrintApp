@@ -11,6 +11,7 @@ using PrintApp.Models;
 using PrintApp.Singleton;
 using ReactiveUI;
 
+
 namespace PrintApp.ViewModels
 {
     public class PrinterListViewModel : ViewModelBase
@@ -68,7 +69,12 @@ namespace PrintApp.ViewModels
 
         public PrinterListViewModel(IEnumerable<PrinterItem> printers)
         {
-            Version = "Build:"+Globals.GetBuildDate(Assembly.GetExecutingAssembly()).ToString();
+            //Version = "Build:"+Globals.GetBuildDate(Assembly.GetExecutingAssembly()).ToString();
+
+            Version = "Version: "+Assembly.GetEntryAssembly()
+                .GetCustomAttribute<VersionAttribute>()
+                .AppVersion.Replace("\"","");
+
             /*
             try
             {

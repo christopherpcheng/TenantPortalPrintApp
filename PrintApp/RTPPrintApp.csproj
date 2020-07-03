@@ -3,20 +3,20 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <SourceRevisionId>build$([System.DateTime]::UtcNow.ToString("yyyyMMddHHmmss"))</SourceRevisionId>
-    
+
+    <CFBundleVersion>1.0.0</CFBundleVersion>
+    <CFBundleShortVersionString>1.0.0</CFBundleShortVersionString>
     <CFBundleName>RTPPrintApp</CFBundleName> <!-- Also defines .app file name -->
     <CFBundleDisplayName>RTPPrintApp</CFBundleDisplayName>
     <CFBundleIdentifier>com.mobilegroupinc.printapp</CFBundleIdentifier>
-    <CFBundleVersion>1.0.0</CFBundleVersion>
-    <CFBundleShortVersionString>1.0.0</CFBundleShortVersionString>
     <CFBundlePackageType>AAPL</CFBundlePackageType>
     <CFBundleSignature>????</CFBundleSignature>
     <CFBundleExecutable>RTPPrintApp</CFBundleExecutable>
     <CFBundleIconFile>robinsons.ico</CFBundleIconFile> <!-- Will be copied from output directory -->
     <NSPrincipalClass>NSApplication</NSPrincipalClass>
     <NSHighResolutionCapable>true</NSHighResolutionCapable>
-    
-  
+
+
   </PropertyGroup>
   <ItemGroup>
     <Compile Update="**\*.xaml.cs">
@@ -47,4 +47,9 @@
       <Generator>MSBuild:Compile</Generator>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <AssemblyAttribute Include="PrintApp.Singleton.VersionAttribute">
+      <_Parameter1>"$(CFBundleVersion)"</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>  
 </Project>

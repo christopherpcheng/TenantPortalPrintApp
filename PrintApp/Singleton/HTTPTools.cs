@@ -71,7 +71,7 @@ namespace PrintApp.Singleton
 
                 WebClient myWebClient = new WebClient();
                 Globals.Log($"Downloading File \"{fileLink}\" from \"\" .......\n\n");
-                myWebClient.DownloadFile(fileLink, tmpFullFile);
+//                myWebClient.DownloadFile(fileLink, tmpFullFile);
                 Globals.Log($"Successfully Downloaded File \"{fileLink}\" from \"\"");
                 Globals.Log($"\nDownloaded file as:\n\t" + tmpFullFile);
 

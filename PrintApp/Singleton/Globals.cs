@@ -10,6 +10,7 @@ namespace PrintApp.Singleton
 {
     public sealed class Globals
     {
+
         public static Globals Instance { get; private set; }
 
         public static string FileToPrint { get; set; } = string.Empty;
