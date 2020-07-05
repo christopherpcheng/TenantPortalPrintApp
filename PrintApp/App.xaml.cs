@@ -33,9 +33,9 @@ namespace PrintApp
             base.OnFrameworkInitializationCompleted();
 
 
-//#if DEBUG
+#if DEBUG
             if (Globals.IsWindows()) ConsoleAllocator.ShowConsoleWindow();
-//#endif
+#endif
 
 //            PrinterTools.PrintPDFCLI2("","");
 
@@ -46,7 +46,7 @@ namespace PrintApp
             if (!FileTools.Instance.ProcessLink(Globals.URLToFile))
             {
                 Globals.Log($"ERROR: ProcessLink failed {Globals.URLToFile}");
-                Console.ReadLine();
+//                Console.ReadLine();
                 Environment.Exit(1);
             }
 
@@ -87,7 +87,7 @@ namespace PrintApp
 #if !DEBUG
                 if (Globals.IsWindows())
                 {
-                    expectedCount = 1;
+                    expectedCount = 2;
                 }
                 else if (Globals.IsOSX())
                 {
@@ -98,9 +98,9 @@ namespace PrintApp
 #if DEBUG                
                 expectedCount = args.Length;
 #endif
-                expectedCount = args.Length;
+                
 
-                if (args.Length == expectedCount)
+                if (args.Length <= expectedCount)
                 {
                     foreach (var param in args)
                     {
@@ -118,7 +118,7 @@ namespace PrintApp
                 else
                 {
                     Globals.Log($"ERR: Exit due to argcount {args.Length} vs expected: {expectedCount}");
-                    Console.ReadLine();
+                    //Console.ReadLine();
                     Environment.Exit(1);
                 }
             }

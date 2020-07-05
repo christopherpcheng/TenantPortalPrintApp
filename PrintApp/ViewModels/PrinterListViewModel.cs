@@ -142,7 +142,7 @@ namespace PrintApp.ViewModels
                         Globals.Log($"FireERR: Could not delete file {Globals.FileToPrint}");
                     }
                     Globals.Log("SUCCESS");
-                    Console.ReadLine();
+                    //Console.ReadLine();
                     Environment.Exit(0);
 
 
