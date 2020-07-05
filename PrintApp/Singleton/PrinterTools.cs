@@ -1,7 +1,9 @@
-﻿using Spire.Pdf;
+﻿using PdfiumPrinter;
+using Spire.Pdf;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Text;
 
 
@@ -14,14 +16,44 @@ namespace PrintApp.Singleton
             Globals.Log($"PRINTING windows! {printerName} and {tmpFilename}");
             try
             {
-                PdfDocument pdf = new PdfDocument();
+
+                Spire.Pdf.PdfDocument pdf = new Spire.Pdf.PdfDocument();
                 pdf.PrintSettings.PrinterName = printerName;
                 Globals.Log($"PDF: Loading file: {tmpFilename}");
                 pdf.LoadFromFile(tmpFilename);
                 Globals.Log($"PDF: Printing to: {printerName}");
                 pdf.PrintSettings.Color = false;
+
+
+                
+
+
                 pdf.Print();
                 Globals.Log($"PDF: Done!");
+            }
+            catch (Exception e)
+            {
+                Globals.Log($"PDFError: {e.Message}");
+            }
+
+        }
+
+        private static void PrintPDFWindows2(string printerName, string tmpFilename)
+        {
+            Globals.Log($"PRINTING windows v2! {printerName} and {tmpFilename}");
+            try
+            {
+                Globals.Log($"PDF2: Loading file: {tmpFilename}");
+                Globals.Log($"PDF2: Printing to: {printerName}");
+
+
+                var printer = new PdfPrinter(printerName);
+                
+                //printer.Print(tmpFilename);
+                printer.Print("C:/Temp/0000000208.pdf");
+
+
+                Globals.Log($"PDF2: Done!");
             }
             catch (Exception e)
             {
@@ -147,7 +179,7 @@ namespace PrintApp.Singleton
             if (Globals.IsWindows())
             {
                 Globals.Log($"Windows Print");
-                PrintPDFWindows(printerName, tmpFilename);
+                PrintPDFWindows2(printerName, tmpFilename);
             }
             else if ((Globals.IsOSX()) || (Globals.IsLinux())) 
             {
@@ -161,7 +193,7 @@ namespace PrintApp.Singleton
             string result = string.Empty;
             if (Globals.IsWindows())
             {
-                PdfDocument pdf = new PdfDocument();
+                Spire.Pdf.PdfDocument pdf = new Spire.Pdf.PdfDocument();
                 result = pdf.PrintSettings.PrinterName;
             }
             return result;

@@ -117,12 +117,6 @@ namespace PrintApp.ViewModels
             .Take(1)
             .Subscribe(model =>
             {
-                /*
-                Version = "Test" + Globals.URLToFile;
-                Console.WriteLine("WTF"+Globals.URLToFile);
-                Console.ReadLine();
-                Environment.Exit(1);
-                */
 
                 if (model != null)
                 {
@@ -147,7 +141,8 @@ namespace PrintApp.ViewModels
                     {
                         Globals.Log($"FireERR: Could not delete file {Globals.FileToPrint}");
                     }
-
+                    Globals.Log("SUCCESS");
+                    Console.ReadLine();
                     Environment.Exit(0);
 
 

@@ -24,6 +24,7 @@ namespace PrintApp.Singleton
 
                 if (!param.EndsWith(".pdf"))
                 {
+                    Globals.Log("VALIDATIONERR: Not a PDF");
                     return false;
                 }
 /*
@@ -43,6 +44,7 @@ namespace PrintApp.Singleton
                     param.Contains("\"") ||
                     param.Contains(" "))
                 {
+                    Globals.Log("VALIDATIONERR: Illegal character found");
                     return false;
                 }
 
@@ -52,7 +54,15 @@ namespace PrintApp.Singleton
                 {
                     return true;
                 }
+                else
+                {
+                    Globals.Log("VALIDATIONERR: Not Well formed string");
+                }
 
+            }
+            else
+            {
+                Globals.Log("VALIDATIONERR: Not HTTP/HTTPS");
             }
             return false;
 
