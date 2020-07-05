@@ -49,8 +49,8 @@ namespace PrintApp.Singleton
 
                 var printer = new PdfPrinter(printerName);
                 
-                //printer.Print(tmpFilename);
-                printer.Print("C:/Temp/0000000208.pdf");
+                printer.Print(tmpFilename);
+                //printer.Print("C:/Temp/0000000208.pdf");
 
 
                 Globals.Log($"PDF2: Done!");
