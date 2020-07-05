@@ -48,7 +48,7 @@ namespace PrintApp.Singleton
 
 
                 var printer = new PdfPrinter(printerName);
-                
+                printer.PageSettings.Color = false;
                 printer.Print(tmpFilename);
                 //printer.Print("C:/Temp/0000000208.pdf");
 
