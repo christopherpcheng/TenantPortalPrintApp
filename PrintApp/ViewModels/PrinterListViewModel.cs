@@ -175,7 +175,7 @@ namespace PrintApp.ViewModels
             );
 
             //SelectedIndex = -1;
-            SelectedIndex = PrintersL.IndexOf(PrinterTools.GetDefaultPrinter2());
+            SelectedIndex = PrintersL.IndexOf(PrinterTools.GetDefaultPrinter());
 
 
 
@@ -187,7 +187,7 @@ namespace PrintApp.ViewModels
         {
             Globals.Log("Print No Nonsense!");
             Globals.Log($"Printer Selected: {SelectedPrinterName}");
-            PrinterTools.PrintPDFCLI2("", "");
+            //PrinterTools.PrintPDFCLI("", "");
 
         }
 
