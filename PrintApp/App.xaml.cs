@@ -1,6 +1,9 @@
 ﻿using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using MessageBox.Avalonia.DTO;
+using MessageBox.Avalonia.Enums;
+using MessageBox.Avalonia.Models;
 using PrintApp.Services;
 using PrintApp.Singleton;
 using PrintApp.ViewModels;
@@ -51,8 +54,37 @@ namespace PrintApp
             }
             if (Globals.FileToPrint == string.Empty)
             {
+                var messageBoxCustomWindow = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxCustomWindow(new MessageBoxCustomParams
+                {
+                    Style = Style.Windows,
+                    ContentMessage = "ERROR: No file downloaded",
+                    Icon = Icon.Forbidden,
+                    ButtonDefinitions = new[] 
+                    { 
+                        new ButtonDefinition { Name = "My" }, 
+                        new ButtonDefinition { Name = "Buttons", Type = ButtonType.Colored } 
+                    }
+                });
+                messageBoxCustomWindow.Show();
+
+                var msBoxStandardWindow = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams
+                {
+                    ButtonDefinitions = ButtonEnum.Ok,
+                    Icon = Icon.Forbidden,
+                    ContentTitle = "Title",
+                    ContentMessage = "Message",
+                    Style = Style.Windows
+                });
+                var res = msBoxStandardWindow.Show();
+
+
+                var messageBoxStandardWindow = 
+                    MessageBox.Avalonia.MessageBoxManager.GetMessageBoxStandardWindow("title", "orem ipsum dolor sit amet, consectetur adipiscing elit, sed...");
+                messageBoxStandardWindow.Show();
+
                 Globals.Log($"ERROR: No file downloaded");
-                Environment.Exit(1);
+                //Console.ReadKey();
+                //Environment.Exit(1);
             }
 
 //            PrinterTools.PrintPDFCLI2("", "");
