@@ -175,7 +175,7 @@ namespace PrintApp.ViewModels
             );
 
             //SelectedIndex = -1;
-            SelectedIndex = PrintersL.IndexOf(PrinterTools.GetDefaultPrinter());
+            SelectedIndex = PrintersL.IndexOf(PrinterTools.GetDefaultPrinter2());
 
 
 
