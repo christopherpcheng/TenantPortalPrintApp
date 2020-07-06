@@ -49,6 +49,11 @@ namespace PrintApp
 //                Console.ReadLine();
                 Environment.Exit(1);
             }
+            if (Globals.FileToPrint == string.Empty)
+            {
+                Globals.Log($"ERROR: No file downloaded");
+                Environment.Exit(1);
+            }
 
 //            PrinterTools.PrintPDFCLI2("", "");
 
