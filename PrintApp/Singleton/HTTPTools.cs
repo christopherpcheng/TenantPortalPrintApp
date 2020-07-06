@@ -71,7 +71,7 @@ namespace PrintApp.Singleton
         // API method:
         public string DownloadFile(string fileLink)
         {
-            string tmpFullFile = string.Empty;
+            string tmpFullFile;
             try
             {
                 string tmpFilePath = Path.GetTempPath();
@@ -88,6 +88,7 @@ namespace PrintApp.Singleton
             }
             catch (Exception ex)
             {
+                tmpFullFile = string.Empty;
                 Globals.Log($"Failed to download file: {ex.Message}");
             }
             return tmpFullFile;
