@@ -34,8 +34,11 @@
       Print</Button>
 
     <TextBlock Height="25"
-               Text="{Binding Version}"/>
-    
+               Text="{Binding Version, Mode=TwoWay}"/>
+    <TextBlock Height="25"
+           Text="{Binding Message, Mode=TwoWay}"/>
+
+
   </StackPanel>
 
 

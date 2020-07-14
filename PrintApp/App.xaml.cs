@@ -45,20 +45,43 @@ namespace PrintApp
 //            InitLogging();
 
             Globals.Log($"Start {Globals.GetBuildDate(Assembly.GetExecutingAssembly())}");
+
+           
             PrepFileURL();
+
             if (!FileTools.Instance.ProcessLink(Globals.URLToFile))
             {
                 Globals.Log($"ERROR: ProcessLink failed {Globals.URLToFile}");
 //                Console.ReadLine();
                 Environment.Exit(1);
             }
+           
+           
             if (Globals.FileToPrint == string.Empty)
             {
+
                 var messageBoxCustomWindow = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxCustomWindow(new MessageBoxCustomParams
                 {
                     Style = Style.Windows,
                     ContentMessage = "ERROR: No file downloaded",
                     Icon = Icon.Forbidden,
+                    ShowInCenter = false,
+                    ButtonDefinitions = new[]
+                    {
+                        new ButtonDefinition { Name = "OK", Type = ButtonType.Colored }
+                    }
+                });
+                messageBoxCustomWindow.Show();
+
+                
+
+                /*
+                var messageBoxCustomWindow = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxCustomWindow(new MessageBoxCustomParams
+                {
+                    Style = Style.Windows,
+                    ContentMessage = "ERROR: No file downloaded",
+                    Icon = Icon.Forbidden,
+                    ShowInCenter = false,
                     ButtonDefinitions = new[] 
                     { 
                         new ButtonDefinition { Name = "My" }, 
@@ -70,10 +93,12 @@ namespace PrintApp
                 var msBoxStandardWindow = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams
                 {
                     ButtonDefinitions = ButtonEnum.Ok,
-                    Icon = Icon.Forbidden,
+                    Icon = Icon.Error,
                     ContentTitle = "Title",
                     ContentMessage = "Message",
-                    Style = Style.Windows
+                    Style = Style.Windows,
+                    CanResize = false,
+                    ShowInCenter = false
                 });
                 var res = msBoxStandardWindow.Show();
 
@@ -85,9 +110,17 @@ namespace PrintApp
                 Globals.Log($"ERROR: No file downloaded");
                 //Console.ReadKey();
                 //Environment.Exit(1);
+
+
+                */
+            }
+            else
+            {
+                HTTPTools.ParseQueryString(Globals.URLToFile);
             }
 
-//            PrinterTools.PrintPDFCLI2("", "");
+
+            //            PrinterTools.PrintPDFCLI2("", "");
 
 
 

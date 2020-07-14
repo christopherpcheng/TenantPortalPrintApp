@@ -22,6 +22,24 @@ namespace PrintApp.Singleton
         public static string PROTOCOL_HTTPS = "https://";
 
         public static string PRINTJOB_NAME = "Billing";
+#if DEBUG
+        public static string TAGGINGAPI = "http://mobilegroupinc.com/index.php/tenantportalapi/API/tenants/update_billing_status";
+#endif
+
+#if !DEBUG
+        public static string TAGGINGAPI = "http://10.88.42.41/tenantportalapi/API/tenants/update_billing_status";
+#endif
+        public static string LIVEDOMAIN = "tenantsportal.robinsonsland.com";
+        public static string STAGINGDOMAIN = "10.88.42.41";
+        public static string TESTDOMAIN = "mobilegroupinc.com";
+
+        public static string PARAM1 = "tenant_id";
+        public static string PARAM2 = "ts_invoice_no";
+
+        public static string ParamValue1 { get; set; } = string.Empty;
+        public static string ParamValue2 { get; set; } = string.Empty;
+
+        public static string APISUCCESS = "\"success\"";
 
         public static string[] BADPRINTERS =
         {

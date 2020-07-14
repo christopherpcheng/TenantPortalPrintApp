@@ -27,6 +27,15 @@ namespace PrintApp.Singleton
                 param = param.Replace(Globals.PROTOCOL_APP, Globals.PROTOCOL_HTTPS);
 //#endif
 
+#if DEBUG
+                if (!param.Contains(Globals.STAGINGDOMAIN))
+                {
+                    Globals.TAGGINGAPI = Globals.TAGGINGAPI.Replace(Globals.LIVEDOMAIN, Globals.STAGINGDOMAIN);
+
+                }
+#endif                
+
+
                 if (HTTPTools.Instance.ValidateURL(param))
                 {
                     Uri uri = new Uri(param);

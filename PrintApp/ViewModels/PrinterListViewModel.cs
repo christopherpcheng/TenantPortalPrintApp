@@ -7,6 +7,8 @@ using System.Reactive.Linq;
 using System.Reflection;
 using System.Text;
 using Avalonia;
+using MessageBox.Avalonia.DTO;
+using MessageBox.Avalonia.Enums;
 using PrintApp.Models;
 using PrintApp.Singleton;
 using ReactiveUI;
@@ -16,7 +18,18 @@ namespace PrintApp.ViewModels
 {
     public class PrinterListViewModel : ViewModelBase
     {
-        public string Version { get; set; }
+        string version;
+        public string Version { 
+            get => version; 
+            set => this.RaiseAndSetIfChanged(ref version, value);
+        }
+
+        string message;
+        public string Message
+        {
+            get => message;
+            set => this.RaiseAndSetIfChanged(ref message, value);
+        }
 
         public int SelectedIndex { get; set; } = 0;
 
@@ -74,7 +87,12 @@ namespace PrintApp.ViewModels
             Version = "Version: "+Assembly.GetEntryAssembly()
                 .GetCustomAttribute<VersionAttribute>()
                 .AppVersion.Replace("\"","");
-
+/*
+            if (Globals.FileToPrint == string.Empty)
+            {
+                Message = "FILE RETRIEVAL FAILED";
+            }
+*/
             /*
             try
             {
@@ -118,18 +136,55 @@ namespace PrintApp.ViewModels
             .Subscribe(model =>
             {
 
-                if (model != null)
+                if ((model != null)&&(Globals.FileToPrint != string.Empty))
                 {
-                    Globals.Log("Print!");
-                    Globals.Log($"Printer Selected: {SelectedPrinterName}");
 
-                    Globals.Log($"Got:{model.PrinterName}");
+                    Globals.Log("Calling Tagging API");
+                    if (HTTPTools.CallTaggingAPI(Globals.ParamValue1, Globals.ParamValue2))
+                    {
+                        Globals.Log("Print!");
+                        Globals.Log($"Printer Selected: {SelectedPrinterName}");
 
-                    //PrinterTools.PrintPDFCLI2("", "");
+                        Globals.Log($"Got:{model.PrinterName}");
 
-                    PrinterTools.PrintPDF(SelectedPrinterName, Globals.FileToPrint);
+                        //PrinterTools.PrintPDFCLI2("", "");
 
-                    //PrinterTools.PrintPDFCLI3("", Globals.FileToPrint);
+                        PrinterTools.PrintPDF(SelectedPrinterName, Globals.FileToPrint);
+
+                        //PrinterTools.PrintPDFCLI3("", Globals.FileToPrint);
+                        //Version = "SUCCESS!";
+
+                        var msBoxStandardWindow = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams
+                        {
+                            ButtonDefinitions = ButtonEnum.Ok,
+                            Icon = Icon.Info,
+                            ContentTitle = "Success",
+                            ContentMessage = "Print OK",
+                            Style = Style.Windows,
+                            CanResize = false,
+                            ShowInCenter = true
+                        });
+                        var res = msBoxStandardWindow.Show();
+
+                    }
+                    else
+                    {
+                        Message = "FAILED TO UPDATE STATUS!";
+                        /*
+                        var msBoxStandardWindow = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams
+                        {
+                            ButtonDefinitions = ButtonEnum.Ok,
+                            Icon = Icon.Error,
+                            ContentTitle = "Failed!",
+                            ContentMessage = "Print Failed",
+                            Style = Style.Windows,
+                            CanResize = false,
+                            ShowInCenter = true
+                        });
+                        var res = msBoxStandardWindow.Show();
+                        */
+                    }
+
 
                     try
                     {
@@ -141,9 +196,9 @@ namespace PrintApp.ViewModels
                     {
                         Globals.Log($"FireERR: Could not delete file {Globals.FileToPrint}");
                     }
-                    Globals.Log("SUCCESS");
+                    Globals.Log("DONE");
                     //Console.ReadLine();
-                    Environment.Exit(0);
+                    //Environment.Exit(0);
 
 
                 }
