@@ -135,6 +135,7 @@ namespace PrintApp.ViewModels
             .Take(1)
             .Subscribe(model =>
             {
+                bool success = false;
 
                 if ((model != null)&&(Globals.FileToPrint != string.Empty))
                 {
@@ -151,9 +152,12 @@ namespace PrintApp.ViewModels
 
                         PrinterTools.PrintPDF(SelectedPrinterName, Globals.FileToPrint);
 
+                        success = true;
+
                         //PrinterTools.PrintPDFCLI3("", Globals.FileToPrint);
                         //Version = "SUCCESS!";
 
+                        /*
                         var msBoxStandardWindow = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams
                         {
                             ButtonDefinitions = ButtonEnum.Ok,
@@ -165,7 +169,8 @@ namespace PrintApp.ViewModels
                             ShowInCenter = true
                         });
                         var res = msBoxStandardWindow.Show();
-
+                        */
+                        
                     }
                     else
                     {
@@ -173,7 +178,7 @@ namespace PrintApp.ViewModels
                         /*
                         var msBoxStandardWindow = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams
                         {
-                            ButtonDefinitions = ButtonEnum.Ok,
+                            ButtnoDefinitions = ButtonEnum.Ok,
                             Icon = Icon.Error,
                             ContentTitle = "Failed!",
                             ContentMessage = "Print Failed",
@@ -198,7 +203,12 @@ namespace PrintApp.ViewModels
                     }
                     Globals.Log("DONE");
                     //Console.ReadLine();
-                    //Environment.Exit(0);
+
+                    if (success)
+                    {
+                        Environment.Exit(0);
+                    }
+
 
 
                 }

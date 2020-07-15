@@ -4,8 +4,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <SourceRevisionId>build$([System.DateTime]::UtcNow.ToString("yyyyMMddHHmmss"))</SourceRevisionId>
 
-    <CFBundleVersion>0.1.1</CFBundleVersion>
-    <CFBundleShortVersionString>0.1.1</CFBundleShortVersionString>
+    <CFBundleVersion>0.2.0</CFBundleVersion>
+    <CFBundleShortVersionString>0.2.0</CFBundleShortVersionString>
     <CFBundleName>RTPPrintApp</CFBundleName> <!-- Also defines .app file name -->
     <CFBundleDisplayName>RTPPrintApp</CFBundleDisplayName>
     <CFBundleIdentifier>com.mobilegroupinc.printapp</CFBundleIdentifier>

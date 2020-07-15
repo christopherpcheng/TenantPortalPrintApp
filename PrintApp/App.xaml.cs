@@ -36,9 +36,9 @@ namespace PrintApp
             base.OnFrameworkInitializationCompleted();
 
 
-#if DEBUG
+//#if DEBUG
             if (Globals.IsWindows()) ConsoleAllocator.ShowConsoleWindow();
-#endif
+//#endif
 
 //            PrinterTools.PrintPDFCLI2("","");
 
