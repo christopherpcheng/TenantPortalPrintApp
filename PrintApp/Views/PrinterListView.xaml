@@ -33,7 +33,7 @@
 
       Print</Button>
 
-    <TextBlock Height="25"
+    <TextBlock Height="20"
                Text="{Binding Version, Mode=TwoWay}"/>
     <TextBlock Height="25"
            Text="{Binding Message, Mode=TwoWay}"/>

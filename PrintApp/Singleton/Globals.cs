@@ -35,9 +35,11 @@ namespace PrintApp.Singleton
 
         public static string PARAM1 = "tenant_id";
         public static string PARAM2 = "ts_invoice_no";
+        public static string PARAMVERSION = "v";
 
         public static string ParamValue1 { get; set; } = string.Empty;
         public static string ParamValue2 { get; set; } = string.Empty;
+        public static string ParamVersion { get; set; } = string.Empty;
 
         public static string APISUCCESS = "\"success\"";
 
@@ -49,6 +51,9 @@ namespace PrintApp.Singleton
             "onenote"
 #endif
         };
+
+        public static string Message { get; set; }
+        public static bool OK { get; set; } = true;
 
         private Globals() { }
         static Globals()
@@ -74,7 +79,7 @@ namespace PrintApp.Singleton
             return System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
         }
 
-
+        
 
         public static DateTime GetBuildDate(Assembly assembly)
         {

@@ -137,7 +137,7 @@ namespace PrintApp.ViewModels
             {
                 bool success = false;
 
-                if ((model != null)&&(Globals.FileToPrint != string.Empty))
+                if ((model != null)&&(Globals.OK))
                 {
 
                     Globals.Log("Calling Tagging API");
@@ -174,6 +174,7 @@ namespace PrintApp.ViewModels
                     }
                     else
                     {
+                        Globals.OK = false;
                         Message = "FAILED TO UPDATE STATUS!";
                         /*
                         var msBoxStandardWindow = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams
@@ -211,6 +212,10 @@ namespace PrintApp.ViewModels
 
 
 
+                }
+                else 
+                {
+                    Message = Globals.Message;
                 }
             }
 

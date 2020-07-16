@@ -55,15 +55,17 @@ namespace PrintApp
 //                Console.ReadLine();
                 Environment.Exit(1);
             }
-           
+
            
             if (Globals.FileToPrint == string.Empty)
             {
-
+                Globals.OK = false;
+                Globals.Message = "";
+                /*
                 var messageBoxCustomWindow = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxCustomWindow(new MessageBoxCustomParams
                 {
                     Style = Style.Windows,
-                    ContentMessage = "ERROR: No file downloaded",
+                    ContentMessage = "ERROR: Could not retrieve billing statement",
                     Icon = Icon.Forbidden,
                     ShowInCenter = false,
                     ButtonDefinitions = new[]
@@ -72,73 +74,33 @@ namespace PrintApp
                     }
                 });
                 messageBoxCustomWindow.Show();
-
+                */
                 
 
-                /*
-                var messageBoxCustomWindow = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxCustomWindow(new MessageBoxCustomParams
-                {
-                    Style = Style.Windows,
-                    ContentMessage = "ERROR: No file downloaded",
-                    Icon = Icon.Forbidden,
-                    ShowInCenter = false,
-                    ButtonDefinitions = new[] 
-                    { 
-                        new ButtonDefinition { Name = "My" }, 
-                        new ButtonDefinition { Name = "Buttons", Type = ButtonType.Colored } 
-                    }
-                });
-                messageBoxCustomWindow.Show();
-
-                var msBoxStandardWindow = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams
-                {
-                    ButtonDefinitions = ButtonEnum.Ok,
-                    Icon = Icon.Error,
-                    ContentTitle = "Title",
-                    ContentMessage = "Message",
-                    Style = Style.Windows,
-                    CanResize = false,
-                    ShowInCenter = false
-                });
-                var res = msBoxStandardWindow.Show();
-
-
-                var messageBoxStandardWindow = 
-                    MessageBox.Avalonia.MessageBoxManager.GetMessageBoxStandardWindow("title", "orem ipsum dolor sit amet, consectetur adipiscing elit, sed...");
-                messageBoxStandardWindow.Show();
-
-                Globals.Log($"ERROR: No file downloaded");
+                //Globals.Log($"ERROR: No file downloaded");
                 //Console.ReadKey();
                 //Environment.Exit(1);
 
 
-                */
             }
             else
             {
                 HTTPTools.ParseQueryString(Globals.URLToFile);
+
+                if (Globals.ParamVersion != Assembly.GetEntryAssembly()
+                        .GetCustomAttribute<VersionAttribute>()
+                        .AppVersion.Replace("\"", ""))
+                {
+                    Globals.OK = false;
+                    Globals.Message = "OUTDATED VERSION. PLEASE UPDATE";
+                }
+
             }
 
 
-            //            PrinterTools.PrintPDFCLI2("", "");
-
-
 
         }
 
-        public void InitLogging()
-        {
-            Log.Logger = new LoggerConfiguration().CreateLogger();
-            Log.Information("No one listens to me!");
-            Log.Logger = new LoggerConfiguration()
-                .WriteTo.Console()
-                .WriteTo.File("log-.txt",rollingInterval:RollingInterval.Day)
-                //.WriteTo.File("rtp-log.txt",
-                //    outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}")
-                .CreateLogger();
-
-            Log.Information("Ah, there you are!");
-        }
 
         private string SanitizeInput(string param)
         {

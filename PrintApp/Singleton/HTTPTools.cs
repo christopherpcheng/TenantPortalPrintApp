@@ -123,7 +123,10 @@ namespace PrintApp.Singleton
                     {
                         Globals.ParamValue2 = qscoll[s];
                     }
-
+                    else if (s == Globals.PARAMVERSION)
+                    {
+                        Globals.ParamVersion = qscoll[s];
+                    }
                 }
             }
 
