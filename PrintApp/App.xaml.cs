@@ -36,9 +36,9 @@ namespace PrintApp
             base.OnFrameworkInitializationCompleted();
 
 
-//#if DEBUG
+#if DEBUG
             if (Globals.IsWindows()) ConsoleAllocator.ShowConsoleWindow();
-//#endif
+#endif
 
 //            PrinterTools.PrintPDFCLI2("","");
 
@@ -60,7 +60,7 @@ namespace PrintApp
             if (Globals.FileToPrint == string.Empty)
             {
                 Globals.OK = false;
-                Globals.Message = "";
+                Globals.Message = "COULD NOT RETRIEVE BILLING STATEMENT";
                 /*
                 var messageBoxCustomWindow = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxCustomWindow(new MessageBoxCustomParams
                 {

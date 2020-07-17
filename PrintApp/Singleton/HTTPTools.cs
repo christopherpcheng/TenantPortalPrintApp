@@ -87,7 +87,7 @@ namespace PrintApp.Singleton
                 Globals.Log($"Successfully Downloaded File \"{fileLink}\" from \"\"");
                 Globals.Log($"\nDownloaded file as:\n\t" + tmpFullFile);
 
-                throw new Exception();
+                //throw new Exception();
 
             }
             catch (Exception ex)

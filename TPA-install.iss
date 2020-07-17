@@ -16,7 +16,7 @@ DisableProgramGroupPage=yes
 OutputBaseFilename=SetupRTPPrintApp
 
 [Files]
-Source: "PrintApp\bin\Release\netcoreapp3.0\publish\win-x86\RTPPrintApp.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "PrintApp\bin\Release\netcoreapp3.1\publish\win-x86\RTPPrintApp.exe"; DestDir: "{app}"; Flags: ignoreversion
 
 [Registry]
 Root: HKCR; Subkey: "rtenant-portal"; ValueType: "string"; ValueData: "URL:rtenant-portal Protocol" ; Flags: uninsdeletekey; Check: IsAdminInstallMode
