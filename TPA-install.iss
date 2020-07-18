@@ -16,14 +16,14 @@ DisableProgramGroupPage=yes
 OutputBaseFilename=SetupRTPPrintApp
 
 [Files]
-Source: "PrintApp\bin\Release\netcoreapp3.1\publish\win-x86\RTPPrintApp.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "PrintApp\bin\Release\publish\win-x86\RTPPrintApp.exe"; DestDir: "{app}"; Flags: ignoreversion
 
 [Registry]
-Root: HKCR; Subkey: "rtenant-portal"; ValueType: "string"; ValueData: "URL:rtenant-portal Protocol" ; Flags: uninsdeletekey; Check: IsAdminInstallMode
+Root: "HKCR"; Subkey: "rtenant-portal"; ValueType: string; ValueData: "URL:rtenant-portal Protocol"; Flags: deletekey deletevalue uninsdeletekeyifempty uninsdeletevalue; Check: IsAdminInstallMode
 ;Root: HKCR; Subkey: "ctp"; ValueType: "string"; ValueData: "URL:ptapp Protocol"; Flags: uninsdeletekey
 
-Root: HKCR; Subkey: "rtenant-portal"; ValueType: "string"; ValueName: "URL Protocol"; ValueData: "" ; Flags: uninsdeletevalue; Check: IsAdminInstallMode
-Root: HKCR; Subkey: "rtenant-portal\shell\open\command";  ValueType: "string"; ValueData: """{app}\RTPPrintApp.exe"" ""%1""" ; Flags: uninsdeletevalue; Check: IsAdminInstallMode
+Root: "HKCR"; Subkey: "rtenant-portal"; ValueType: string; ValueName: "URL Protocol"; Flags: uninsdeletevalue deletekey deletevalue uninsdeletekeyifempty; Check: IsAdminInstallMode
+Root: "HKCR"; Subkey: "rtenant-portal\shell\open\command"; ValueType: string; ValueData: """{app}\RTPPrintApp.exe"" ""%1"""; Flags: uninsdeletevalue deletekey deletevalue uninsdeletekeyifempty; Check: IsAdminInstallMode
 
 
 ;[Registry]
@@ -50,4 +50,3 @@ Root: HKCR; Subkey: "rtenant-portal\shell\open\command";  ValueType: "string"; V
 ; be done in non administrative install mode.
 ;Root: HKCU; Subkey: "Software\My Company\My Program\Settings"; ValueType: string; ValueName: "UserName"; ValueData: "{userinfoname}"; Check: not IsAdminInstallMode
 ;Root: HKCU; Subkey: "Software\My Company\My Program\Settings"; ValueType: string; ValueName: "UserOrganization"; ValueData: "{userinfoorg}"; Check: not IsAdminInstallMode
-
