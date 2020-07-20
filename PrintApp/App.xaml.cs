@@ -173,7 +173,7 @@ namespace PrintApp
                         if (i == args.Length - 1)
                         {
                             string p = SanitizeInput(param);
-                            p = "rtenant-portal://mobilegroupinc.com/resources/pdf/0000000208.pdf?tenant_id=1&ts_invoice_no=2&v=0.2.0";
+                            //p = "rtenant-portal://mobilegroupinc.com/resources/pdf/0000000208.pdf?tenant_id=1&ts_invoice_no=2&v=0.2.0";
                             Globals.Log($"DEBUG ARGS({i}): {p}");
                             Globals.URLToFile = p;
 
