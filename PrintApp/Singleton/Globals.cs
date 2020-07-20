@@ -43,6 +43,9 @@ namespace PrintApp.Singleton
 
         public static string APISUCCESS = "\"success\"";
 
+        public static string LOGPATH_DEBUG_OSX = "/Users/mobilegroupinc/Desktop/prt/log-.txt";
+        public static string LOGPATH_DEBUG_WIN = "C:/Kit/log-.txt";
+
         public static string[] BADPRINTERS =
         {
 #if !DEBUG            
@@ -64,6 +67,7 @@ namespace PrintApp.Singleton
         public static void Log(string text)
         {
             Console.WriteLine(text);
+            Serilog.Log.Information(text);
         }
 
         public static bool IsWindows()

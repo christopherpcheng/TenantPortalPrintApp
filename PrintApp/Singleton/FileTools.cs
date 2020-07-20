@@ -20,12 +20,8 @@ namespace PrintApp.Singleton
             try
             {
                 Globals.Log($"arg: {fileLink}");
-//#if DEBUG
                 string param = fileLink.Replace(Globals.PROTOCOL_APP, Globals.PROTOCOL_HTTP);
-//#endif
-//#if !DEBUG
                 param = param.Replace(Globals.PROTOCOL_APP, Globals.PROTOCOL_HTTPS);
-//#endif
 
 #if DEBUG
                 if (!param.Contains(Globals.STAGINGDOMAIN))
@@ -33,8 +29,15 @@ namespace PrintApp.Singleton
                     Globals.TAGGINGAPI = Globals.TAGGINGAPI.Replace(Globals.LIVEDOMAIN, Globals.STAGINGDOMAIN);
 
                 }
-#endif                
+#endif
+#if !DEBUG
+                if (param.Contains(Globals.STAGINGDOMAIN))
+                {
+                    Globals.TAGGINGAPI = Globals.TAGGINGAPI.Replace(Globals.LIVEDOMAIN, Globals.STAGINGDOMAIN);
 
+                }
+#endif
+                //Globals.TAGGINGAPI = "http://mobilegroupinc.com/index.php/tenantportalapi/API/tenants/update_billing_status";
 
                 if (HTTPTools.Instance.ValidateURL(param))
                 {
@@ -53,11 +56,15 @@ namespace PrintApp.Singleton
                 }
                 else
                 {
+                    Globals.OK = false;
+                    Globals.Message = "BAD URI";
                     Globals.Log($"Err:Bad URI");
                 }
             }
             catch (Exception e)
             {
+                Globals.OK = false;
+                Globals.Message = "RETRIEVAL LINK PROBLEM:"+ fileLink;
                 Globals.Log($"Exception: {e.Message}");
             }
             return false;

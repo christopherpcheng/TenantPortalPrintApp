@@ -64,7 +64,7 @@ namespace PrintApp.Singleton
             }
             else
             {
-                Globals.Log("VALIDATIONERR: Not HTTP/HTTPS");
+                Globals.Log("VALIDATIONERR: Not HTTP/HTTPS!");
             }
             return false;
 
@@ -107,6 +107,7 @@ namespace PrintApp.Singleton
             if (iqs == -1)
             {
                 Globals.Log("ERR:No Query String found");
+                result = "NO QUERY DATA";
             }
             else if (iqs >= 0)
             {
@@ -128,6 +129,20 @@ namespace PrintApp.Singleton
                         Globals.ParamVersion = qscoll[s];
                     }
                 }
+                if (Globals.ParamValue1 == string.Empty)
+                {
+                    result = "NO PARAM1"+url;
+                }
+                else if (Globals.ParamValue2 == string.Empty)
+                {
+                    result = "NO PARAM2" + url;
+                }
+                else if (Globals.ParamVersion == string.Empty)
+                {
+                    result = "NO PARAMVERSION" + url;
+                }
+
+
             }
 
             return result;
@@ -200,7 +215,7 @@ namespace PrintApp.Singleton
                 }
                 catch (Exception ex)
                 {
-                    Globals.Log($"ERR:{ex.Message}");
+                    Globals.Log($"APIERR:{ex.Message}");
                 }
                 return false;
             }

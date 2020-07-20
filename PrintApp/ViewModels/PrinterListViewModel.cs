@@ -194,7 +194,7 @@ namespace PrintApp.ViewModels
 
                     try
                     {
-                        Message = "Cleanup";
+                     //   Message = "Cleanup";
                         Globals.Log("Cleanup");
                         File.Delete(Globals.FileToPrint);
 
@@ -204,12 +204,12 @@ namespace PrintApp.ViewModels
                         Globals.Log($"FireERR: Could not delete file {Globals.FileToPrint}");
                     }
                     Globals.Log("DONE");
-                    Message = "Billing Statement successfully printed";
                     //Console.ReadLine();
                     
                     if (success)
                     {
-                    //    Environment.Exit(0);
+                        Message = "Billing Statement successfully printed";
+                        Environment.Exit(0);
                     }
 
 

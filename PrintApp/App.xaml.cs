@@ -10,7 +10,6 @@ using PrintApp.ViewModels;
 using PrintApp.Views;
 using Serilog;
 using System;
-using System.Diagnostics;
 using System.Reflection;
 
 namespace PrintApp
@@ -19,11 +18,17 @@ namespace PrintApp
     {
         public override void Initialize()
         {
+#if DEBUG
+            InitLogging();
+            if (Globals.IsWindows()) ConsoleAllocator.ShowConsoleWindow();
+#endif
+
             AvaloniaXamlLoader.Load(this);
         }
 
         public override void OnFrameworkInitializationCompleted()
         {
+
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 var pdb = new PrinterDatabase();
@@ -36,13 +41,8 @@ namespace PrintApp
             base.OnFrameworkInitializationCompleted();
 
 
-#if DEBUG
-            if (Globals.IsWindows()) ConsoleAllocator.ShowConsoleWindow();
-#endif
 
 //            PrinterTools.PrintPDFCLI2("","");
-
-//            InitLogging();
 
             Globals.Log($"Start {Globals.GetBuildDate(Assembly.GetExecutingAssembly())}");
 
@@ -53,14 +53,20 @@ namespace PrintApp
             {
                 Globals.Log($"ERROR: ProcessLink failed {Globals.URLToFile}");
 //                Console.ReadLine();
-                Environment.Exit(1);
+                
+//                Environment.Exit(1);
+
+                Globals.OK = false;
+//                Globals.Message = "LINK PROBLEM:"+Globals.URLToFile;
+                Globals.Message = "COULD NOT RETRIEVE BILLING STATEMENT(1)";
             }
 
-           
-            if (Globals.FileToPrint == string.Empty)
+
+            if ((Globals.FileToPrint == string.Empty)&&(Globals.OK))
             {
                 Globals.OK = false;
-                Globals.Message = "COULD NOT RETRIEVE BILLING STATEMENT";
+                Globals.Message = "COULD NOT RETRIEVE BILLING STATEMENT(2)";
+                //Globals.Message = "COULD NOT RETRIEVE BILLING STATEMENT:"+Globals.Message;
                 /*
                 var messageBoxCustomWindow = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxCustomWindow(new MessageBoxCustomParams
                 {
@@ -75,7 +81,7 @@ namespace PrintApp
                 });
                 messageBoxCustomWindow.Show();
                 */
-                
+
 
                 //Globals.Log($"ERROR: No file downloaded");
                 //Console.ReadKey();
@@ -83,22 +89,50 @@ namespace PrintApp
 
 
             }
-            else
+            else if (Globals.OK)
             {
-                HTTPTools.ParseQueryString(Globals.URLToFile);
-
-                if (Globals.ParamVersion != Assembly.GetEntryAssembly()
+                string res = HTTPTools.ParseQueryString(Globals.URLToFile);
+                if (res != string.Empty)
+                {
+                    Globals.OK = false;
+                    Globals.Message = "PARSE ERROR:" + res;
+                }
+                else if (Globals.ParamVersion != Assembly.GetEntryAssembly()
                         .GetCustomAttribute<VersionAttribute>()
                         .AppVersion.Replace("\"", ""))
                 {
                     Globals.OK = false;
-                    Globals.Message = "OUTDATED VERSION. PLEASE UPDATE";
+                    Globals.Message = "OUTDATED VERSION. PLEASE UPDATE:"+Globals.ParamVersion;
                 }
 
             }
 
 
 
+        }
+
+
+        public void InitLogging()
+        {
+            string logpath = string.Empty;
+            if (Globals.IsWindows())
+            {
+                logpath = Globals.LOGPATH_DEBUG_WIN
+            } else if (Globals.IsOSX())
+            {
+                logpath = Globals.LOGPATH_DEBUG_OSX
+
+            }
+            Log.Logger = new LoggerConfiguration().CreateLogger();
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.Console()
+                //.WriteTo.File("log-.txt", rollingInterval: RollingInterval.Day)
+                .WriteTo.File(logpath, rollingInterval: RollingInterval.Day)
+                //.WriteTo.File("rtp-log.txt",
+                //    outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}")
+                .CreateLogger();
+
+            Log.Debug("STARTING!");
         }
 
 
@@ -127,7 +161,7 @@ namespace PrintApp
 
                 }
 #endif
-#if DEBUG                
+#if DEBUG
                 expectedCount = args.Length;
 #endif
                 
@@ -139,6 +173,7 @@ namespace PrintApp
                         if (i == args.Length - 1)
                         {
                             string p = SanitizeInput(param);
+                            p = "rtenant-portal://mobilegroupinc.com/resources/pdf/0000000208.pdf?tenant_id=1&ts_invoice_no=2&v=0.2.0";
                             Globals.Log($"DEBUG ARGS({i}): {p}");
                             Globals.URLToFile = p;
 

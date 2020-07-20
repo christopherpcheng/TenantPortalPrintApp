@@ -47,6 +47,7 @@ namespace PrintApp.Singleton
                 process.StartInfo.Arguments = $"-P \"{printerName}\"  -T \"{Globals.PRINTJOB_NAME}\" \"{tmpFilename}\"";
                 process.StartInfo.CreateNoWindow = true;
                 process.StartInfo.UseShellExecute = false;
+                
                 process.StartInfo.RedirectStandardOutput = true;
                 process.OutputDataReceived += (sender, data) => {
                     Globals.Log(data.Data);
@@ -55,6 +56,7 @@ namespace PrintApp.Singleton
                 process.ErrorDataReceived += (sender, data) => {
                     Globals.Log(data.Data);
                 };
+                
                 process.Start();
 
                 process.WaitForExit(timeOut);
