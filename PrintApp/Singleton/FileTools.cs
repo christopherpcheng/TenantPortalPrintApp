@@ -23,13 +23,7 @@ namespace PrintApp.Singleton
                 string param = fileLink.Replace(Globals.PROTOCOL_APP, Globals.PROTOCOL_HTTP);
                 param = param.Replace(Globals.PROTOCOL_APP, Globals.PROTOCOL_HTTPS);
 
-#if DEBUG
-                if (!param.Contains(Globals.STAGINGDOMAIN))
-                {
-                    Globals.TAGGINGAPI = Globals.TAGGINGAPI.Replace(Globals.LIVEDOMAIN, Globals.STAGINGDOMAIN);
 
-                }
-#endif
 #if !DEBUG
                 if (param.Contains(Globals.STAGINGDOMAIN))
                 {

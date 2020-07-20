@@ -27,7 +27,8 @@ namespace PrintApp.Singleton
 #endif
 
 #if !DEBUG
-        public static string TAGGINGAPI = "http://10.88.42.41/tenantportalapi/API/tenants/update_billing_status";
+        //public static string TAGGINGAPI = "http://10.88.42.41/tenantportalapi/API/tenants/update_billing_status";
+        public static string TAGGINGAPI = "http://tenantsportal.robinsonsland.com/tenantportalapi/API/tenants/update_billing_status";
 #endif
         public static string LIVEDOMAIN = "tenantsportal.robinsonsland.com";
         public static string STAGINGDOMAIN = "10.88.42.41";
