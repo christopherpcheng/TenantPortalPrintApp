@@ -28,7 +28,7 @@ namespace PrintApp.Singleton
                 if (param.Contains(Globals.STAGINGDOMAIN))
                 {
                     Globals.TAGGINGAPI = Globals.TAGGINGAPI.Replace(Globals.LIVEDOMAIN, Globals.STAGINGDOMAIN);
-
+                    Globals.TAGGINGAPI = Globals.TAGGINGAPI.Replace(Globals.PROTOCOL_HTTPS, Globals.PROTOCOL_HTTP);
                 }
 #endif
                 //Globals.TAGGINGAPI = "http://mobilegroupinc.com/index.php/tenantportalapi/API/tenants/update_billing_status";
