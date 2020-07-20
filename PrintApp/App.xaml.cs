@@ -117,10 +117,10 @@ namespace PrintApp
             string logpath = string.Empty;
             if (Globals.IsWindows())
             {
-                logpath = Globals.LOGPATH_DEBUG_WIN
+                logpath = Globals.LOGPATH_DEBUG_WIN;
             } else if (Globals.IsOSX())
             {
-                logpath = Globals.LOGPATH_DEBUG_OSX
+                logpath = Globals.LOGPATH_DEBUG_OSX;
 
             }
             Log.Logger = new LoggerConfiguration().CreateLogger();
