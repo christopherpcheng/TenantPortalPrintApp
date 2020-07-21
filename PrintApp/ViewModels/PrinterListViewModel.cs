@@ -6,6 +6,8 @@ using System.Reactive;
 using System.Reactive.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using Avalonia;
 using MessageBox.Avalonia.DTO;
 using MessageBox.Avalonia.Enums;
@@ -133,7 +135,7 @@ namespace PrintApp.ViewModels
 
             PrintCommand
             .Take(1)
-            .Subscribe(model =>
+            .Subscribe(async model => 
             {
                 bool success = false;
 
@@ -209,6 +211,8 @@ namespace PrintApp.ViewModels
                     if (success)
                     {
                         Message = "Billing Statement successfully printed";
+                        //Thread.Sleep(10000);
+                        await Task.Delay(10000);
                         Environment.Exit(0);
                     }
 
