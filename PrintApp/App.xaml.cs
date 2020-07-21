@@ -42,8 +42,6 @@ namespace PrintApp
 
 
 
-//            PrinterTools.PrintPDFCLI2("","");
-
             Globals.Log($"Start {Globals.GetBuildDate(Assembly.GetExecutingAssembly())}");
 
            
@@ -52,13 +50,9 @@ namespace PrintApp
             if (!FileTools.Instance.ProcessLink(Globals.URLToFile))
             {
                 Globals.Log($"ERROR: ProcessLink failed {Globals.URLToFile}");
-//                Console.ReadLine();
-                
-//                Environment.Exit(1);
 
                 Globals.OK = false;
-//                Globals.Message = "LINK PROBLEM:"+Globals.URLToFile;
-                Globals.Message = "COULD NOT RETRIEVE BILLING STATEMENT(1)";
+                Globals.Message = "ERROR:"+ Globals.Message;
             }
 
 
@@ -66,28 +60,6 @@ namespace PrintApp
             {
                 Globals.OK = false;
                 Globals.Message = "COULD NOT RETRIEVE BILLING STATEMENT(2)";
-                //Globals.Message = "COULD NOT RETRIEVE BILLING STATEMENT:"+Globals.Message;
-                /*
-                var messageBoxCustomWindow = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxCustomWindow(new MessageBoxCustomParams
-                {
-                    Style = Style.Windows,
-                    ContentMessage = "ERROR: Could not retrieve billing statement",
-                    Icon = Icon.Forbidden,
-                    ShowInCenter = false,
-                    ButtonDefinitions = new[]
-                    {
-                        new ButtonDefinition { Name = "OK", Type = ButtonType.Colored }
-                    }
-                });
-                messageBoxCustomWindow.Show();
-                */
-
-
-                //Globals.Log($"ERROR: No file downloaded");
-                //Console.ReadKey();
-                //Environment.Exit(1);
-
-
             }
             else if (Globals.OK)
             {
@@ -126,7 +98,6 @@ namespace PrintApp
             Log.Logger = new LoggerConfiguration().CreateLogger();
             Log.Logger = new LoggerConfiguration()
                 .WriteTo.Console()
-                //.WriteTo.File("log-.txt", rollingInterval: RollingInterval.Day)
                 .WriteTo.File(logpath, rollingInterval: RollingInterval.Day)
                 //.WriteTo.File("rtp-log.txt",
                 //    outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}")

@@ -47,6 +47,8 @@ namespace PrintApp.Singleton
         public static string LOGPATH_DEBUG_OSX = "/Users/mobilegroupinc/Desktop/prt/log-.txt";
         public static string LOGPATH_DEBUG_WIN = "C:/Kit/log-.txt";
 
+        public static int SLEEPTIMER = 10000;
+
         public static string[] BADPRINTERS =
         {
 #if !DEBUG            
