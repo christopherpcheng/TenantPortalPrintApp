@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
-using System.Printing;
+//using System.Printing;
 using SharpDX.Direct3D11;
 
 namespace PrintApp.Singleton
@@ -107,7 +107,7 @@ namespace PrintApp.Singleton
             return result;
 
         }
-
+/*
         public static string CheckPrinter(string printerName)
         {
             PrintQueue queue = null;
@@ -143,6 +143,6 @@ namespace PrintApp.Singleton
 
 
         }
-
+*/
     }
 }
