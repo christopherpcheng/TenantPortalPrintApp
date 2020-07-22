@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
-
+using System.Printing;
+using SharpDX.Direct3D11;
 
 namespace PrintApp.Singleton
 {
@@ -104,6 +105,42 @@ namespace PrintApp.Singleton
                 result = printer.Settings.PrinterName;
             }
             return result;
+
+        }
+
+        public static string CheckPrinter(string printerName)
+        {
+            PrintQueue queue = null;
+            try
+            {
+                //PrintServer myPS = new PrintServer(line, PrintSystemDesiredAccess.AdministrateServer);
+                var server = new LocalPrintServer();
+
+                //Load queue for correct printer
+                queue = server.GetPrintQueue(printerName, new string[0] { });
+            }
+            catch (Exception e)
+            {
+
+            }
+
+            if (queue != null)
+            {
+                if (queue.IsOffline)
+                    return "(Offline)";
+                else if (queue.IsBusy)
+                    return "(Busy)";
+                else if (queue.IsOutOfPaper)
+                    return "(OutOfPaper)";
+                else if (queue.IsNotAvailable)
+                    return "(NotAvailable)";
+                else return $"{queue.QueueStatus}";
+            }
+            else
+            {
+                return "Dead";
+            }
+
 
         }
 

@@ -141,6 +141,8 @@ namespace PrintApp.ViewModels
 
                 if ((model != null)&&(Globals.OK))
                 {
+                    //Globals.Log(PrinterTools.CheckPrinter(model.PrinterName));
+                    //Console.ReadKey();
 
                     Globals.Log("Calling Tagging API");
                     if (HTTPTools.CallTaggingAPI(Globals.ParamValue1, Globals.ParamValue2))
