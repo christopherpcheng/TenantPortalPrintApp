@@ -58,7 +58,7 @@ namespace PrintApp.Singleton
             catch (Exception e)
             {
                 Globals.OK = false;
-                Globals.Message = "RETRIEVAL LINK PROBLEM:"+ fileLink;
+                Globals.Message = "E:"+ e.Message;  //RETRIEVAL PROBLEM
                 Globals.Log($"Exception: {e.Message}");
             }
             return false;
