@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
+#if _WINDOWS
+using System.Printing;
+#endif
 
 
 namespace PrintApp.Singleton
@@ -106,6 +109,52 @@ namespace PrintApp.Singleton
             return result;
 
         }
+
+#if _WINDOWS
+        public static string CheckPrinter(string printerName)
+        {
+            PrintQueue queue = null;
+            try
+            {
+                //PrintServer myPS = new PrintServer(name, PrintSystemDesiredAccess.AdministrateServer);
+                var server = new LocalPrintServer();
+
+                //Load queue for correct printer
+                queue = server.GetPrintQueue(printerName, new string[0] { });
+            }
+            catch (Exception e)
+            {
+//                Console.
+            }
+
+            if (queue != null)
+            {
+                if (queue.IsOffline)
+                    return "(Offline)";
+                else if (queue.IsBusy)
+                    return "(Busy)";
+                else if (queue.IsOutOfPaper)
+                    return "(OutOfPaper)";
+                else if (queue.IsNotAvailable)
+                    return "(NotAvailable)";
+                else return $"{queue.QueueStatus}";
+            }
+            else
+            {
+                return "Dead";
+            }
+
+
+        }
+#endif
+
+#if _OSX
+        public static string CheckPrinter(string printerName)
+        {
+            return string.Empty; //TODO
+
+        }
+#endif
 
     }
 }
