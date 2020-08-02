@@ -223,7 +223,7 @@ namespace PrintApp.ViewModels
                     }
                     else
                     {
-                        Message = "PRINTER IS OFFLINE";
+                        Message = $"PRINTER PROBLEM: {Globals.Message}";
                     }
 
                 }

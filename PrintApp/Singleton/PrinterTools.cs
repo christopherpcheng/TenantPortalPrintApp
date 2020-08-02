@@ -218,30 +218,37 @@ namespace PrintApp.Singleton
                     if (Convert.ToBoolean(p.Value.Status & Globals.PRINTER_STATUS_OFFLINE))
                     {
                         Globals.Log("*OFFLINE*");
+                        Globals.Message = "OFFLINE";
                     }
                     else if (Convert.ToBoolean(p.Value.Attributes & Globals.PRINTER_ATTRIBUTE_WORK_OFFLINE))
                     {
                         Globals.Log("*WORK OFFLINE*");
+                        Globals.Message = "WORK OFFLINE MODE";
                     }
                     else if (Convert.ToBoolean(p.Value.Status & Globals.PRINTER_STATUS_ERROR))
                     {
                         Console.WriteLine("Is in ERROR state");
+                        Globals.Message = "ERROR STATE";
                     }
                     else if (Convert.ToBoolean(p.Value.Status & Globals.PRINTER_STATUS_PAPER_JAM))
                     {
                         Console.WriteLine("Is in JAM state");
+                        Globals.Message = "PAPER JAM";
                     }
                     else if(Convert.ToBoolean(p.Value.Status & Globals.PRINTER_STATUS_PAPER_OUT))
                     {
                         Console.WriteLine("Is in PAPER OUT state");
+                        Globals.Message = "PAPER OUT";
                     }
                     else if(Convert.ToBoolean(p.Value.Status & Globals.PRINTER_STATUS_NOT_AVAILABLE))
                     {
                         Console.WriteLine("Is in NOT AVAILABLE state");
+                        Globals.Message = "NOT AVAILABLE";
                     }
                     else if (Convert.ToBoolean(p.Value.Status & Globals.PRINTER_STATUS_NO_TONER))
                     {
                         Console.WriteLine("Is in NO TONER state");
+                        Globals.Message = "NO INK/TONER";
                     }
                     else
                     {
@@ -358,6 +365,7 @@ namespace PrintApp.Singleton
                     if (!found)
                     {
                         Globals.Log($"No Printer found {printerName}");
+                        Globals.Message = "NOT FOUND";
                     }
                 }
             }
