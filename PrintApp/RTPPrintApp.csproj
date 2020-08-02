@@ -5,6 +5,7 @@
     <SourceRevisionId>build$([System.DateTime]::UtcNow.ToString("yyyyMMddHHmmss"))</SourceRevisionId>
 
     <CFBundleVersion>1.1.0</CFBundleVersion>
+    <CFBundleShortVersionString>1.1.0</CFBundleShortVersionString>
     <CFBundleName>RTPPrintApp</CFBundleName> <!-- Also defines .app file name -->
     <CFBundleDisplayName>RTPPrintApp</CFBundleDisplayName>
     <CFBundleIdentifier>com.mobilegroupinc.printapp</CFBundleIdentifier>
