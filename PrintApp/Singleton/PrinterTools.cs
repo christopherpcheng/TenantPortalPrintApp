@@ -223,6 +223,26 @@ namespace PrintApp.Singleton
                     {
                         Globals.Log("*WORK OFFLINE*");
                     }
+                    else if (Convert.ToBoolean(p.Value.Status & Globals.PRINTER_STATUS_ERROR))
+                    {
+                        Console.WriteLine("Is in ERROR state");
+                    }
+                    else if (Convert.ToBoolean(p.Value.Status & Globals.PRINTER_STATUS_PAPER_JAM))
+                    {
+                        Console.WriteLine("Is in JAM state");
+                    }
+                    else if(Convert.ToBoolean(p.Value.Status & Globals.PRINTER_STATUS_PAPER_OUT))
+                    {
+                        Console.WriteLine("Is in PAPER OUT state");
+                    }
+                    else if(Convert.ToBoolean(p.Value.Status & Globals.PRINTER_STATUS_NOT_AVAILABLE))
+                    {
+                        Console.WriteLine("Is in NOT AVAILABLE state");
+                    }
+                    else if (Convert.ToBoolean(p.Value.Status & Globals.PRINTER_STATUS_NO_TONER))
+                    {
+                        Console.WriteLine("Is in NO TONER state");
+                    }
                     else
                     {
                         found = true;

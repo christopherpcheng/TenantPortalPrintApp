@@ -63,6 +63,11 @@ namespace PrintApp.Singleton
         };
 
         public static int PRINTER_STATUS_OFFLINE = 0x80;
+        public static int PRINTER_STATUS_ERROR = 2;
+        public static int PRINTER_STATUS_PAPER_JAM = 8;
+        public static int PRINTER_STATUS_PAPER_OUT = 0x10;
+        public static int PRINTER_STATUS_NOT_AVAILABLE = 0x1000;
+        public static int PRINTER_STATUS_NO_TONER = 0x40000;
         public static int PRINTER_ATTRIBUTE_WORK_OFFLINE = 0x400;
 
         public static string Message { get; set; }
