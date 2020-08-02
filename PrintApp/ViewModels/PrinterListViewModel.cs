@@ -216,6 +216,7 @@ namespace PrintApp.ViewModels
                         if (success)
                         {
                             Message = "Billing Statement successfully printed";
+                            await Task.Delay(Globals.SLEEPTIMER);
                             Environment.Exit(0);
                         }
 
