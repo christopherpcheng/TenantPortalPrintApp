@@ -4,8 +4,7 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <SourceRevisionId>build$([System.DateTime]::UtcNow.ToString("yyyyMMddHHmmss"))</SourceRevisionId>
 
-    <CFBundleVersion>1.0.1</CFBundleVersion>
-    <CFBundleShortVersionString>1.0.1</CFBundleShortVersionString>
+    <CFBundleVersion>1.1.0</CFBundleVersion>
     <CFBundleName>RTPPrintApp</CFBundleName> <!-- Also defines .app file name -->
     <CFBundleDisplayName>RTPPrintApp</CFBundleDisplayName>
     <CFBundleIdentifier>com.mobilegroupinc.printapp</CFBundleIdentifier>
@@ -44,6 +43,7 @@
     <PackageReference Include="Serilog" Version="2.9.0" />
     <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
     <PackageReference Include="Serilog.Sinks.File" Version="4.1.0" />
+    <PackageReference Include="System.Management" Version="4.7.0" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Views\PrinterListView.xaml">

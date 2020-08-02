@@ -5,7 +5,7 @@
 
 [Setup]
 AppName=Tenant Portal Print App
-AppVersion=1.0.1
+AppVersion=1.1.0
 WizardStyle=modern
 DefaultDirName={autopf}\Tenant Portal Print App
 UninstallDisplayIcon={app}\RTPPrintApp.exe

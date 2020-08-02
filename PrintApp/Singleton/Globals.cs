@@ -41,12 +41,13 @@ namespace PrintApp.Singleton
         public static string ParamValue1 { get; set; } = string.Empty;
         public static string ParamValue2 { get; set; } = string.Empty;
         public static string ParamVersion { get; set; } = string.Empty;
+
 #if DEBUG
-        public static string APISUCCESS = " ";
-#endif
-#if !DEBUG
+        public static string APISUCCESS = "";
+#else
         public static string APISUCCESS = "\"success\"";
 #endif
+
         public static string LOGPATH_DEBUG_OSX = "/Users/mobilegroupinc/Desktop/prt/log-.txt";
         public static string LOGPATH_DEBUG_WIN = "C:/Kit/log-.txt";
 
@@ -60,6 +61,9 @@ namespace PrintApp.Singleton
             "onenote"
 #endif
         };
+
+        public static int PRINTER_STATUS_OFFLINE = 0x80;
+        public static int PRINTER_ATTRIBUTE_WORK_OFFLINE = 0x400;
 
         public static string Message { get; set; }
         public static bool OK { get; set; } = true;

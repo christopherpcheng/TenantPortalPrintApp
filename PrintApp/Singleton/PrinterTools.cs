@@ -4,8 +4,12 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
-//using System.Printing;
-using SharpDX.Direct3D11;
+using System.Runtime.InteropServices;
+using System.Management;
+#if _WINDOWS
+using System.Printing;
+#endif
+
 
 namespace PrintApp.Singleton
 {
@@ -107,7 +111,179 @@ namespace PrintApp.Singleton
             return result;
 
         }
-/*
+
+#if _WINDOWS
+        [DllImport("winspool.drv", CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern int OpenPrinter(string pPrinterName, out IntPtr phPrinter, ref PRINTER_DEFAULTS pDefault);
+
+        [DllImport("winspool.drv", SetLastError = true, CharSet = CharSet.Auto)]
+        public static extern bool GetPrinter(IntPtr hPrinter, Int32 dwLevel, IntPtr pPrinter, Int32 dwBuf, out Int32 dwNeeded);
+
+        [DllImport("winspool.drv", SetLastError = true)]
+        public static extern int ClosePrinter(IntPtr hPrinter);
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct PRINTER_DEFAULTS
+        {
+            public IntPtr pDatatype;
+            public IntPtr pDevMode;
+            public int DesiredAccess;
+        }
+
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
+        public struct PRINTER_INFO_2
+        {
+            [MarshalAs(UnmanagedType.LPTStr)]
+            public string pServerName;
+
+            [MarshalAs(UnmanagedType.LPTStr)]
+            public string pPrinterName;
+
+            [MarshalAs(UnmanagedType.LPTStr)]
+            public string pShareName;
+
+            [MarshalAs(UnmanagedType.LPTStr)]
+            public string pPortName;
+
+            [MarshalAs(UnmanagedType.LPTStr)]
+            public string pDriverName;
+
+            [MarshalAs(UnmanagedType.LPTStr)]
+            public string pComment;
+
+            [MarshalAs(UnmanagedType.LPTStr)]
+            public string pLocation;
+
+            public IntPtr pDevMode;
+
+            [MarshalAs(UnmanagedType.LPTStr)]
+            public string pSepFile;
+
+            [MarshalAs(UnmanagedType.LPTStr)]
+            public string pPrintProcessor;
+
+            [MarshalAs(UnmanagedType.LPTStr)]
+            public string pDatatype;
+
+            [MarshalAs(UnmanagedType.LPTStr)]
+            public string pParameters;
+
+            public IntPtr pSecurityDescriptor;
+            public uint Attributes;
+            public uint Priority;
+            public uint DefaultPriority;
+            public uint StartTime;
+            public uint UntilTime;
+            public uint Status;
+            public uint cJobs;
+            public uint AveragePPM;
+        }
+
+        public static PRINTER_INFO_2? GetPrinterInfoRaw(String printerName)
+        {
+            IntPtr pHandle;
+            PRINTER_DEFAULTS defaults = new PRINTER_DEFAULTS();
+            PRINTER_INFO_2? Info2 = null;
+
+            OpenPrinter(printerName, out pHandle, ref defaults);
+
+            Int32 cbNeeded = 0;
+
+            bool bRet = GetPrinter(pHandle, 2, IntPtr.Zero, 0, out cbNeeded);
+
+            if (cbNeeded > 0)
+            {
+                IntPtr pAddr = Marshal.AllocHGlobal((int)cbNeeded);
+
+                bRet = GetPrinter(pHandle, 2, pAddr, cbNeeded, out cbNeeded);
+
+                if (bRet)
+                {
+                    Info2 = (PRINTER_INFO_2)Marshal.PtrToStructure(pAddr, typeof(PRINTER_INFO_2));
+                }
+
+                Marshal.FreeHGlobal(pAddr);
+            }
+
+            ClosePrinter(pHandle);
+
+            return Info2;
+        }
+
+
+        public static bool CheckPrinterWindows(string printerName)
+        {
+            bool found = false;
+            try
+            {
+                PRINTER_INFO_2? p = GetPrinterInfoRaw(printerName);
+                if (p != null)
+                {
+                    if (Convert.ToBoolean(p.Value.Status & Globals.PRINTER_STATUS_OFFLINE))
+                    {
+                        Globals.Log("*OFFLINE*");
+                    }
+                    else if (Convert.ToBoolean(p.Value.Attributes & Globals.PRINTER_ATTRIBUTE_WORK_OFFLINE))
+                    {
+                        Globals.Log("*WORK OFFLINE*");
+                    }
+                    else
+                    {
+                        found = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Globals.Log("PInvoke error: "+ex.Message);
+
+                found = true; //In event of exception, print nonetheless to prevent issue due to various things that can go wrong with this
+            }
+
+            return found;
+        }
+        /*
+        public static bool CheckPrinterStatusWMI(string printerName)
+        {
+            bool found = false;
+            try
+            {
+                ManagementObjectSearcher searcher =
+                    new ManagementObjectSearcher("root\\CIMV2",
+                     @"SELECT * FROM Win32_Printer WHERE Name = '" + printerName.Replace("\\", "\\\\") + "'");
+
+                foreach (ManagementObject printObj in searcher.Get())
+                {
+                    if (printObj["WorkOffline"].ToString().ToLower().Equals("true"))
+                    {
+                        // printer is offline by user
+                        Globals.Log("Your Plug-N-Play printer is not connected.");
+                    }
+                    else
+                    {
+                        found = true;
+                    }
+                }
+            }
+            catch (ManagementException e)
+            {
+                Globals.Log("An error occurred while querying for WMI data: " + e.Message);
+                found = true; //if this complicated call fails, default to true to avoid trouble
+            }
+            return found;
+
+
+        }
+        */
+
+        public static bool CheckPrinter(string printerName)
+        {
+            return CheckPrinterWindows(printerName);
+            //return CheckPrinterWindows(printerName) && CheckPrinterStatusWMI(printerName);
+        }
+
+
+        /*
         public static string CheckPrinter(string printerName)
         {
             PrintQueue queue = null;
@@ -143,6 +319,91 @@ namespace PrintApp.Singleton
 
 
         }
-*/
+        */
+#endif
+
+#if _OSX
+        public static bool CheckPrinter(string printerName)
+        {
+            return CheckPrinterMacOS(printerName);
+
+        }
+
+        public static bool CheckPrinterMacOS(string printerName)
+        {
+            bool found = false;
+
+            try
+            {
+
+
+                var process = new Process()
+                {
+                    StartInfo = new ProcessStartInfo
+                    {
+
+                        FileName = "lpinfo",
+                        Arguments = $"--include-schemes dnssd,usb -v",
+                        CreateNoWindow = true,
+                        UseShellExecute = false,
+                        RedirectStandardOutput = true,
+                        RedirectStandardError = true
+                    }
+                };
+                process.OutputDataReceived += (sender, data) =>
+                {
+                    Globals.Log($"O: {data.Data}");
+                };
+                process.ErrorDataReceived += (sender, data) =>
+                {
+                    Globals.Log($"E: {data.Data}");
+                };
+                process.Start();
+                /*
+                while (!process.StandardError.EndOfStream)
+                {
+                    string line = process.StandardError.ReadLine();
+                    Console.WriteLine($"WE: {line} --> {ParsePrinterString(line)}");
+                }
+                */
+                while (!process.StandardOutput.EndOfStream)
+                {
+                    string line = process.StandardOutput.ReadLine();
+                    line = ParseMacOSPrinterString(line);
+                    if (line == printerName)
+                    {
+                        Globals.Log($"FOUND printer {line} matching selected {printerName}");
+                        found = true;
+                    }
+                    //Console.WriteLine($"WO: {line} --> {ParsePrinterString(line)}");
+                    if (!found)
+                    {
+                        Globals.Log($"No Printer found {printerName}");
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                found = true; //In event of exception, print nonetheless to prevent issue due to various things that can go wrong with this
+            }
+
+            return found;
+        }
+
+        public static string ParseMacOSPrinterString(string printerString)
+        {
+            if (printerString.Contains(@"://"))
+            {
+                printerString = printerString.Split(new string[] { "://" }, 2, StringSplitOptions.None)[1];
+                printerString = printerString.Split('?')[0];
+                printerString = printerString.Replace("/", "_");
+                printerString = printerString.Replace("%20", "_");
+            }
+
+            return printerString;
+        }
+
+#endif
+
     }
 }

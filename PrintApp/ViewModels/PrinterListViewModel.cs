@@ -141,83 +141,89 @@ namespace PrintApp.ViewModels
 
                 if ((model != null)&&(Globals.OK))
                 {
-                    //Globals.Log(PrinterTools.CheckPrinter(model.PrinterName));
-                    //Console.ReadKey();
+                    Globals.Log("Checking if printer is active");
 
-                    Globals.Log("Calling Tagging API");
-                    if (HTTPTools.CallTaggingAPI(Globals.ParamValue1, Globals.ParamValue2))
+                    if (PrinterTools.CheckPrinter(SelectedPrinterName))
                     {
-                        Globals.Log("Print!");
-                        Globals.Log($"Printer Selected: {SelectedPrinterName}");
+                        Globals.Log("Printer is active");
 
-                        Globals.Log($"Got:{model.PrinterName}");
-
-                        //PrinterTools.PrintPDFCLI2("", "");
-
-                        PrinterTools.PrintPDF(SelectedPrinterName, Globals.FileToPrint);
-
-                        success = true;
-
-                        //PrinterTools.PrintPDFCLI3("", Globals.FileToPrint);
-                        //Version = "SUCCESS!";
-
-                        /*
-                        var msBoxStandardWindow = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams
+                        Globals.Log("Calling Tagging API");
+                        if (HTTPTools.CallTaggingAPI(Globals.ParamValue1, Globals.ParamValue2))
                         {
-                            ButtonDefinitions = ButtonEnum.Ok,
-                            Icon = Icon.Info,
-                            ContentTitle = "Success",
-                            ContentMessage = "Print OK",
-                            Style = Style.Windows,
-                            CanResize = false,
-                            ShowInCenter = true
-                        });
-                        var res = msBoxStandardWindow.Show();
-                        */
-                        
+                            Globals.Log("Print!");
+                            Globals.Log($"Printer Selected: {SelectedPrinterName}");
+
+                            Globals.Log($"Got:{model.PrinterName}");
+
+                            //PrinterTools.PrintPDFCLI2("", "");
+
+                            PrinterTools.PrintPDF(SelectedPrinterName, Globals.FileToPrint);
+
+                            success = true;
+
+                            //PrinterTools.PrintPDFCLI3("", Globals.FileToPrint);
+                            //Version = "SUCCESS!";
+
+                            /*
+                            var msBoxStandardWindow = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams
+                            {
+                                ButtonDefinitions = ButtonEnum.Ok,
+                                Icon = Icon.Info,
+                                ContentTitle = "Success",
+                                ContentMessage = "Print OK",
+                                Style = Style.Windows,
+                                CanResize = false,
+                                ShowInCenter = true
+                            });
+                            var res = msBoxStandardWindow.Show();
+                            */
+
+                        }
+                        else
+                        {
+                            Globals.OK = false;
+                            Message = "FAILED TO UPDATE STATUS!";
+                            /*
+                            var msBoxStandardWindow = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams
+                            {
+                                ButtnoDefinitions = ButtonEnum.Ok,
+                                Icon = Icon.Error,
+                                ContentTitle = "Failed!",
+                                ContentMessage = "Print Failed",
+                                Style = Style.Windows,
+                                CanResize = false,
+                                ShowInCenter = true
+                            });
+                            var res = msBoxStandardWindow.Show();
+                            */
+                        }
+
+
+                        try
+                        {
+                            //   Message = "Cleanup";
+                            Globals.Log("Cleanup");
+                            File.Delete(Globals.FileToPrint);
+
+                        }
+                        catch
+                        {
+                            Globals.Log($"FireERR: Could not delete file {Globals.FileToPrint}");
+                        }
+                        Globals.Log("DONE");
+                        //Console.ReadLine();
+
+                        if (success)
+                        {
+                            Message = "Billing Statement successfully printed";
+                            Environment.Exit(0);
+                        }
+
                     }
                     else
                     {
-                        Globals.OK = false;
-                        Message = "FAILED TO UPDATE STATUS!";
-                        /*
-                        var msBoxStandardWindow = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxStandardWindow(new MessageBoxStandardParams
-                        {
-                            ButtnoDefinitions = ButtonEnum.Ok,
-                            Icon = Icon.Error,
-                            ContentTitle = "Failed!",
-                            ContentMessage = "Print Failed",
-                            Style = Style.Windows,
-                            CanResize = false,
-                            ShowInCenter = true
-                        });
-                        var res = msBoxStandardWindow.Show();
-                        */
+                        Message = "PRINTER IS OFFLINE";
                     }
-
-
-                    try
-                    {
-                     //   Message = "Cleanup";
-                        Globals.Log("Cleanup");
-                        File.Delete(Globals.FileToPrint);
-
-                    }
-                    catch 
-                    {
-                        Globals.Log($"FireERR: Could not delete file {Globals.FileToPrint}");
-                    }
-                    Globals.Log("DONE");
-                    //Console.ReadLine();
-                    
-                    if (success)
-                    {
-                        Message = "Billing Statement successfully printed";
-                        await Task.Delay(Globals.SLEEPTIMER);
-                        Environment.Exit(0);
-                    }
-
-
 
                 }
                 else 
