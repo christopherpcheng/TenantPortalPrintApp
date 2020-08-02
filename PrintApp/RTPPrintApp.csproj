@@ -15,14 +15,26 @@
     <CFBundleIconFile>robinsons.ico</CFBundleIconFile> <!-- Will be copied from output directory -->
     <NSPrincipalClass>NSApplication</NSPrincipalClass>
     <NSHighResolutionCapable>true</NSHighResolutionCapable>
+    <Configurations>Debug;Release;Release-OSX</Configurations>
 
 
   </PropertyGroup>
-<!--  
-  <ItemGroup>
-    <FrameworkReference Include="Microsoft.WindowsDesktop.App" />
-  </ItemGroup>
--->  
+
+  <PropertyGroup Condition=" '$(Configuration)' != 'Release-OSX' ">
+    <DefineConstants>_WINDOWS</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release-OSX' ">
+    <DefineConstants>_OSX</DefineConstants>
+  </PropertyGroup>
+  
+  <Choose>
+    <When Condition=" '$(Configuration)'!='Release-OSX' ">
+      <ItemGroup>
+        <FrameworkReference Include="Microsoft.WindowsDesktop.App" />
+      </ItemGroup>
+    </When>
+  </Choose>
+  
   <ItemGroup>
     <Compile Update="**\*.xaml.cs">
       <DependentUpon>%(Filename)</DependentUpon>

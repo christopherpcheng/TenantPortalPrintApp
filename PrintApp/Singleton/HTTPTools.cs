@@ -94,7 +94,7 @@ namespace PrintApp.Singleton
             {
                 tmpFullFile = string.Empty;
                 Globals.Log($"Failed to download file: {ex.Message}");
-                throw new Exception("FAILED TO RETRIEVE BILLING DATA");
+                throw new Exception(ex.Message);
             }
             return tmpFullFile;
         }

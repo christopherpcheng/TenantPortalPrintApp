@@ -6,10 +6,6 @@ using System.IO;
 using System.Text;
 using System.Runtime.InteropServices;
 using System.Management;
-#if _WINDOWS
-using System.Printing;
-#endif
-
 
 namespace PrintApp.Singleton
 {
@@ -283,43 +279,6 @@ namespace PrintApp.Singleton
         }
 
 
-        /*
-        public static string CheckPrinter(string printerName)
-        {
-            PrintQueue queue = null;
-            try
-            {
-                //PrintServer myPS = new PrintServer(line, PrintSystemDesiredAccess.AdministrateServer);
-                var server = new LocalPrintServer();
-
-                //Load queue for correct printer
-                queue = server.GetPrintQueue(printerName, new string[0] { });
-            }
-            catch (Exception e)
-            {
-
-            }
-
-            if (queue != null)
-            {
-                if (queue.IsOffline)
-                    return "(Offline)";
-                else if (queue.IsBusy)
-                    return "(Busy)";
-                else if (queue.IsOutOfPaper)
-                    return "(OutOfPaper)";
-                else if (queue.IsNotAvailable)
-                    return "(NotAvailable)";
-                else return $"{queue.QueueStatus}";
-            }
-            else
-            {
-                return "Dead";
-            }
-
-
-        }
-        */
 #endif
 
 #if _OSX
