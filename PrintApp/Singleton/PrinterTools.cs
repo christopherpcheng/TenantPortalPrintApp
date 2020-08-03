@@ -1,4 +1,7 @@
-﻿using PdfiumPrinter;
+﻿//#define _OSX
+//#undef _WINDOWS
+
+using PdfiumPrinter;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -345,6 +348,8 @@ namespace PrintApp.Singleton
                     Globals.Log($"E: {data.Data}");
                 };
                 process.Start();
+                process.WaitForExit(Globals.PROCTIMER);
+                
                 /*
                 while (!process.StandardError.EndOfStream)
                 {
@@ -371,6 +376,7 @@ namespace PrintApp.Singleton
             }
             catch (Exception e)
             {
+                Globals.Log($"CPM: {e.Message}");
                 found = true; //In event of exception, print nonetheless to prevent issue due to various things that can go wrong with this
             }
 

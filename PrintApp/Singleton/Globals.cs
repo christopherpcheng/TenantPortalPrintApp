@@ -52,6 +52,7 @@ namespace PrintApp.Singleton
         public static string LOGPATH_DEBUG_WIN = "C:/Kit/log-.txt";
 
         public static int SLEEPTIMER = 10000;
+        public static int PROCTIMER = 10000;
 
         public static string[] BADPRINTERS =
         {
