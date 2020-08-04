@@ -26,6 +26,9 @@
   <PropertyGroup Condition=" '$(Configuration)' == 'Release-OSX' ">
     <DefineConstants>_OSX</DefineConstants>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
   
   <Choose>
     <When Condition=" '$(Configuration)'!='Release-OSX' ">
