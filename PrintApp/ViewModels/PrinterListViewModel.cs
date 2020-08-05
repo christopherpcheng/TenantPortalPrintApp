@@ -33,6 +33,21 @@ namespace PrintApp.ViewModels
             set => this.RaiseAndSetIfChanged(ref message, value);
         }
 
+        private bool _enabled = true;
+
+        public bool Enabled
+        {
+            get { return _enabled; }
+            set 
+            {
+                _enabled = value;
+                this.RaiseAndSetIfChanged(ref _enabled, value);
+            }
+        }
+
+
+
+
         public int SelectedIndex { get; set; } = 0;
 
         string selectedPrinterName;
@@ -122,7 +137,7 @@ namespace PrintApp.ViewModels
 
             var okEnabled = this.WhenAnyValue(
                 x => x.SelectedName,
-                x => !string.IsNullOrWhiteSpace(x)
+                x => Enabled && !string.IsNullOrWhiteSpace(x)
                 );
 
 
@@ -138,6 +153,12 @@ namespace PrintApp.ViewModels
             .Subscribe(async model => 
             {
                 bool success = false;
+                Enabled = false;
+
+                //stupid workaround to force checking of okEnabled events
+                var tmp = SelectedName;
+                SelectedName = string.Empty;
+                SelectedName = tmp;
 
                 if ((model != null)&&(Globals.OK))
                 {
