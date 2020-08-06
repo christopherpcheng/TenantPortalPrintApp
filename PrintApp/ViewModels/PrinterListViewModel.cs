@@ -40,7 +40,6 @@ namespace PrintApp.ViewModels
             get { return _enabled; }
             set 
             {
-                _enabled = value;
                 this.RaiseAndSetIfChanged(ref _enabled, value);
             }
         }
@@ -137,8 +136,10 @@ namespace PrintApp.ViewModels
 
             var okEnabled = this.WhenAnyValue(
                 x => x.SelectedName,
-                x => Enabled && !string.IsNullOrWhiteSpace(x)
-                );
+                x => x.Enabled,
+                (name,toggle) => 
+                    !string.IsNullOrWhiteSpace(name) && toggle
+                ) ;
 
 
             PrintCommand = ReactiveCommand.Create(
@@ -154,11 +155,6 @@ namespace PrintApp.ViewModels
             {
                 bool success = false;
                 Enabled = false;
-
-                //stupid workaround to force checking of okEnabled events
-                var tmp = SelectedName;
-                SelectedName = string.Empty;
-                SelectedName = tmp;
 
                 if ((model != null)&&(Globals.OK))
                 {

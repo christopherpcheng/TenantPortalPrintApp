@@ -205,7 +205,7 @@ namespace PrintApp.Singleton
                     reqparm.Add(Globals.PARAM2, ts_invoice_no);
                     byte[] responsebytes = client.UploadValues(Globals.TAGGINGAPI, "POST", reqparm);
                     string responsebody = Encoding.UTF8.GetString(responsebytes);
-                    Globals.Log(responsebody);
+                    //Globals.Log(responsebody);
 
                     if (responsebody.Contains(Globals.APISUCCESS))
                         return true;
