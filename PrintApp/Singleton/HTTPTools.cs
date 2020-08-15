@@ -74,14 +74,16 @@ namespace PrintApp.Singleton
         public string DownloadFile(string fileLink)
         {
             string tmpFullFile;
+
+            WebClient myWebClient = null;
+
             try
             {
                 string tmpFilePath = Path.GetTempPath();
                 string tmpFileName = Path.GetRandomFileName();
                 tmpFullFile = Path.Combine(tmpFilePath, tmpFileName);
 
-
-                WebClient myWebClient = new WebClient();
+                myWebClient = new WebClient();
                 Globals.Log($"Downloading File \"{fileLink}\" from \"\" .......\n\n");
                 myWebClient.DownloadFile(fileLink, tmpFullFile);
                 Globals.Log($"Successfully Downloaded File \"{fileLink}\" from \"\"");
@@ -95,6 +97,13 @@ namespace PrintApp.Singleton
                 tmpFullFile = string.Empty;
                 Globals.Log($"Failed to download file: {ex.Message}");
                 throw new Exception(ex.Message);
+            }
+            finally
+            {
+                if (myWebClient != null)
+                {
+                    myWebClient.Dispose();
+                }
             }
             return tmpFullFile;
         }
@@ -151,26 +160,31 @@ namespace PrintApp.Singleton
 
         public static void CallPostAPI()
         {
-            using (WebClient client = new WebClient())
+            WebClient client = null;
+            try
             {
-                try
+                client = new WebClient();
+                System.Collections.Specialized.NameValueCollection reqparm = new System.Collections.Specialized.NameValueCollection
                 {
-                    System.Collections.Specialized.NameValueCollection reqparm = new System.Collections.Specialized.NameValueCollection
-                    {
-                        { Globals.PARAM1, "1" },
-                        { Globals.PARAM2, "1" }
-                    };
-                    byte[] responsebytes = client.UploadValues(Globals.TAGGINGAPI, "POST", reqparm);
-                    string responsebody = Encoding.UTF8.GetString(responsebytes);
-                    Console.WriteLine(responsebody);
-
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"ERR:{ex.Message}");
-                }
-
+                    { Globals.PARAM1, "1" },
+                    { Globals.PARAM2, "1" }
+                };
+                byte[] responsebytes = client.UploadValues(Globals.TAGGINGAPI, "POST", reqparm);
+                string responsebody = Encoding.UTF8.GetString(responsebytes);
+                Console.WriteLine(responsebody);
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"ERR:{ex.Message}");
+            }
+            finally
+            {
+                if (client != null)
+                {
+                    client.Dispose();
+                }
+            }
+
         }
         public static void CallGetAPI()
         {
