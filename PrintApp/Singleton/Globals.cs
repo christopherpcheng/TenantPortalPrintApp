@@ -137,7 +137,7 @@ namespace PrintApp.Singleton
             {
 #if _WINDOWS
                 Globals.FileStreamToPrint?.Dispose();
-                //#else
+#else
                 File.Delete(Globals.FileToPrint);
 #endif
             }

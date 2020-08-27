@@ -9,6 +9,10 @@
         Title="Tenant Portal Print App"
         Content="{Binding ContentVM}"
         >
-  
+  <!--
+  <Button 
+          Name="CloseMainViewModel" 
+          Command="{Binding CloseMainViewModelCommand}"/>
+-->
 
 </Window>

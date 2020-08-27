@@ -1,6 +1,8 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using PrintApp.ViewModels;
+using System.ComponentModel;
 
 namespace PrintApp.Views
 {
@@ -12,11 +14,24 @@ namespace PrintApp.Views
 #if DEBUG
             this.AttachDevTools();
 #endif
+            Closing += OnWindowClosing;
+
         }
 
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
         }
+
+        
+        public void OnWindowClosing(object sender, CancelEventArgs e)
+        {
+            var viewModel = (MainWindowViewModel)DataContext;
+            viewModel.CloseMainViewModelCommand();
+            
+            //CloseMainViewModelCommand();
+            
+        }
+        
     }
 }
