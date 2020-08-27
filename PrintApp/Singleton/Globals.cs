@@ -35,12 +35,12 @@ namespace PrintApp.Singleton
         public static string TAGGINGAPI = string.Empty;
         public static string TAGGINGAPI_PATH = "/tenantportalapi/API/tenants/update_billing_status";
 #endif
-        /*
+        
         public static string LIVEDOMAIN = "tenantsportal.robinsonsland.com";
         //public static string STAGINGDOMAIN = "10.88.42.41";
         public static string STAGINGDOMAIN = "rlcmlappv2qas01.robinsonsland.com";
         public static string TESTDOMAIN = "mobilegroupinc.com";
-        */
+        
 
         public static string PARAM1 = "tenant_id";
         public static string PARAM2 = "ts_invoice_no";

@@ -22,7 +22,15 @@ namespace PrintApp.Singleton
 #if DEBUG                
                 param = fileLink.Replace(Globals.PROTOCOL_APP, Globals.PROTOCOL_HTTP);
 #else
-                param = param.Replace(Globals.PROTOCOL_APP, Globals.PROTOCOL_HTTPS);
+                //if not doing Release build test on test server, use HTTPS
+                if (!fileLink.StartsWith(Globals.PROTOCOL_APP + Globals.TESTDOMAIN))
+                {
+                    param = param.Replace(Globals.PROTOCOL_APP, Globals.PROTOCOL_HTTPS);
+                }
+                else
+                {
+                    param = param.Replace(Globals.PROTOCOL_APP, Globals.PROTOCOL_HTTP);
+                }
 #endif
                 
 
