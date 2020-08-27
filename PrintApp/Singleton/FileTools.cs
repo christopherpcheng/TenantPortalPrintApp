@@ -27,9 +27,11 @@ namespace PrintApp.Singleton
                 {
                     param = param.Replace(Globals.PROTOCOL_APP, Globals.PROTOCOL_HTTPS);
                 }
-                else
+                else //Doing Release build test on test server. Use non SSL,custom API path, and forced API success
                 {
                     param = param.Replace(Globals.PROTOCOL_APP, Globals.PROTOCOL_HTTP);
+                    Globals.TAGGINGAPI_PATH = Globals.TAGGINGAPI_DEBUGPATH;
+                    Globals.APISUCCESS = "";
                 }
 #endif
                 

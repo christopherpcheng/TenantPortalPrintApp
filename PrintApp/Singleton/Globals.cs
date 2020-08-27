@@ -28,14 +28,15 @@ namespace PrintApp.Singleton
         //public static string TAGGINGAPI = "http://mobilegroupinc.com/index.php/tenantportalapi/API/tenants/update_billing_status";
         public static string TAGGINGAPI = string.Empty;
         public static string TAGGINGAPI_PATH = "/index.php/tenantportalapi/API/tenants/update_billing_status";
-
+        public static string TAGGINGAPI_DEBUGPATH = "/index.php/tenantportalapi/API/tenants/update_billing_status";
 #else
         //public static string TAGGINGAPI = "http://10.88.42.41/tenantportalapi/API/tenants/update_billing_status";
         //public static string TAGGINGAPI = "https://tenantsportal.robinsonsland.com/tenantportalapi/API/tenants/update_billing_status";
         public static string TAGGINGAPI = string.Empty;
         public static string TAGGINGAPI_PATH = "/tenantportalapi/API/tenants/update_billing_status";
+        public static string TAGGINGAPI_DEBUGPATH = "/index.php/tenantportalapi/API/tenants/update_billing_status";
 #endif
-        
+
         public static string LIVEDOMAIN = "tenantsportal.robinsonsland.com";
         //public static string STAGINGDOMAIN = "10.88.42.41";
         public static string STAGINGDOMAIN = "rlcmlappv2qas01.robinsonsland.com";

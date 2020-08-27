@@ -18,6 +18,7 @@ namespace PrintApp
     {
         public override void Initialize()
         {
+            
 #if DEBUG
             InitLogging();
             if (Globals.IsWindows()) ConsoleAllocator.ShowConsoleWindow();
