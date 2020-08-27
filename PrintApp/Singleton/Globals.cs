@@ -17,6 +17,7 @@ namespace PrintApp.Singleton
         public static string FileToPrint { get; set; } = string.Empty;
         public static Stream FileStreamToPrint { get; set; }
         public static string URLToFile { get; set; } = string.Empty;
+        public static string URLParamter { get; set; } = string.Empty;
         public static string PrinterToUse { get; set; } = string.Empty;
 
         public static string PROTOCOL_APP = "rtenant-portal://";

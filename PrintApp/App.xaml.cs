@@ -46,9 +46,9 @@ namespace PrintApp
             Globals.Log($"Start {Globals.GetBuildDate(Assembly.GetExecutingAssembly())}");
 
 
-            Globals.URLToFile = PrepFileURL();
+            Globals.URLParamter = PrepFileURL();
 
-            if (!FileTools.Instance.ProcessLink(Globals.URLToFile))
+            if (!FileTools.Instance.ProcessLink(Globals.URLParamter)) //sets URLToFile
             {
                 Globals.Log($"ERROR: ProcessLink failed {Globals.URLToFile}");
 
@@ -56,6 +56,29 @@ namespace PrintApp
                 Globals.Message = "ERROR:"+ Globals.Message;
             }
 
+            string res = HTTPTools.ParseQueryString(Globals.URLParamter);
+            if (res != string.Empty)
+            {
+                Globals.OK = false;
+                Globals.Message = "PARSE ERROR:" + res;
+            }
+            else if (Globals.ParamVersion != Assembly.GetEntryAssembly()
+                    .GetCustomAttribute<VersionAttribute>()
+                    .AppVersion.Replace("\"", ""))
+            {
+                string myVersion = Assembly.GetEntryAssembly()
+                    .GetCustomAttribute<VersionAttribute>()
+                    .AppVersion.Replace("\"", "");
+                Globals.OK = false;
+                Globals.Message = $"OUTDATED VERSION. PLEASE UPDATE:{myVersion} -> {Globals.ParamVersion}";
+            }
+
+            if (Globals.OK && (!FileTools.Instance.GetPDF(Globals.URLToFile)))
+            {
+                Globals.Log($"ERROR: GetPDF failed {Globals.URLToFile}");
+                Globals.OK = false;
+                Globals.Message = "ERROR:" + Globals.Message;
+            }
 
             if ((Globals.FileToPrint == string.Empty)&&(Globals.OK))
             {
@@ -64,19 +87,7 @@ namespace PrintApp
             }
             else if (Globals.OK)
             {
-                string res = HTTPTools.ParseQueryString(Globals.URLToFile);
-                if (res != string.Empty)
-                {
-                    Globals.OK = false;
-                    Globals.Message = "PARSE ERROR:" + res;
-                }
-                else if (Globals.ParamVersion != Assembly.GetEntryAssembly()
-                        .GetCustomAttribute<VersionAttribute>()
-                        .AppVersion.Replace("\"", ""))
-                {
-                    Globals.OK = false;
-                    Globals.Message = "OUTDATED VERSION. PLEASE UPDATE:"+Globals.ParamVersion;
-                }
+
 
             }
 
