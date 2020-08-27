@@ -391,11 +391,11 @@ namespace PrintApp.Singleton
                         found = true;
                     }
                     //Console.WriteLine($"WO: {line} --> {ParsePrinterString(line)}");
-                    if (!found)
-                    {
-                        Globals.Log($"No Printer found {printerName}");
-                        Globals.Message = "NOT FOUND";
-                    }
+                }
+                if (!found)
+                {
+                    Globals.Log($"No Printer found {printerName}");
+                    Globals.Message = "NOT FOUND";
                 }
             }
             catch (Exception e)
