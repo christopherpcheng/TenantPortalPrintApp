@@ -70,7 +70,7 @@ namespace PrintApp.Singleton
 
         }
 
-        // API method:
+        
         public string DownloadFile(string fileLink)
         {
             string tmpFullFile;
@@ -106,6 +106,40 @@ namespace PrintApp.Singleton
                 }
             }
             return tmpFullFile;
+        }
+
+        public Stream DownloadFileStream(string fileLink)
+        {
+            Stream result;
+            
+
+            WebClient myWebClient = null;
+
+            try
+            {
+
+                myWebClient = new WebClient();
+                Globals.Log($"Downloading File \"{fileLink}\" from \"\" .......\n\n");
+                result = new MemoryStream(myWebClient.DownloadData(fileLink));
+                Globals.Log($"Successfully Downloaded File \"{fileLink}\" to memory stream \"\"");
+                
+                //throw new Exception();
+
+            }
+            catch (Exception ex)
+            {
+                
+                Globals.Log($"Failed to download file: {ex.Message}");
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                if (myWebClient != null)
+                {
+                    myWebClient.Dispose();
+                }
+            }
+            return result;
         }
 
         public static string ParseQueryString(string url)

@@ -220,7 +220,8 @@ namespace PrintApp.ViewModels
                         {
                             //   Message = "Cleanup";
                             Globals.Log("Cleanup");
-                            File.Delete(Globals.FileToPrint);
+
+                            Globals.DestroyFile();
 
                         }
                         catch

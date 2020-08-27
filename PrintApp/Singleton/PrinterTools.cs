@@ -38,6 +38,29 @@ namespace PrintApp.Singleton
             }
 
         }
+        private static void PrintPDFWindows(string printerName, Stream fs)
+        {
+            Globals.Log($"PRINTING windows v2! {printerName} and ");
+            try
+            {
+                Globals.Log($"PDF2: Loading file: MEMORY BUFFER");
+                Globals.Log($"PDF2: Printing to: {printerName}");
+
+
+                var printer = new PdfPrinter(printerName);
+                printer.PageSettings.Color = false;
+                printer.Print(fs);
+                //printer.Print("C:/Temp/0000000208.pdf");
+
+
+                Globals.Log($"PDF2: Done!");
+            }
+            catch (Exception e)
+            {
+                Globals.Log($"PDFError: {e.Message}");
+            }
+
+        }
 
         private static void PrintPDFCLI(string printerName, string tmpFilename)
         {
@@ -89,7 +112,8 @@ namespace PrintApp.Singleton
             if (Globals.IsWindows())
             {
                 Globals.Log($"Windows Print");
-                PrintPDFWindows(printerName, tmpFilename);
+                //PrintPDFWindows(printerName, tmpFilename);
+                PrintPDFWindows(printerName, Globals.FileStreamToPrint);
             }
             else if ((Globals.IsOSX()) || (Globals.IsLinux())) 
             {

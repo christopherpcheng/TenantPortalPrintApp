@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -14,6 +15,7 @@ namespace PrintApp.Singleton
         public static Globals Instance { get; private set; }
 
         public static string FileToPrint { get; set; } = string.Empty;
+        public static Stream FileStreamToPrint { get; set; }
         public static string URLToFile { get; set; } = string.Empty;
         public static string PrinterToUse { get; set; } = string.Empty;
 
@@ -127,6 +129,22 @@ namespace PrintApp.Singleton
             }
 
             return default;
+        }
+
+        public static void DestroyFile()
+        {
+            try
+            {
+#if _WINDOWS
+                Globals.FileStreamToPrint?.Dispose();
+                //#else
+                File.Delete(Globals.FileToPrint);
+#endif
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
 
 

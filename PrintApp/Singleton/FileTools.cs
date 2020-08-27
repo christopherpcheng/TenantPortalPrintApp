@@ -42,7 +42,12 @@ namespace PrintApp.Singleton
                     Globals.Log($"To download file: {param}");
                     Globals.URLToFile = param;
                     Globals.Log($"Storing to Globals: {Globals.URLToFile}");
+#if _WINDOWS
+                    Globals.FileStreamToPrint = HTTPTools.Instance.DownloadFileStream(Globals.URLToFile);
+                    Globals.FileToPrint = "MEMORY BUFFER";
+#else
                     Globals.FileToPrint = HTTPTools.Instance.DownloadFile(Globals.URLToFile);
+#endif
                     Globals.Log($"Processed: {Globals.FileToPrint}");
 
                     return true;
