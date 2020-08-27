@@ -44,8 +44,8 @@ namespace PrintApp
 
             Globals.Log($"Start {Globals.GetBuildDate(Assembly.GetExecutingAssembly())}");
 
-           
-            PrepFileURL();
+
+            Globals.URLToFile = PrepFileURL();
 
             if (!FileTools.Instance.ProcessLink(Globals.URLToFile))
             {
@@ -112,7 +112,7 @@ namespace PrintApp
             return param;
         }
 
-        private void PrepFileURL()
+        private string PrepFileURL()
         {
             string[] args = Environment.GetCommandLineArgs();
 
@@ -120,8 +120,10 @@ namespace PrintApp
             {
                 int i = 0;
                 int expectedCount = 0;
-                
-#if !DEBUG
+
+#if DEBUG
+                expectedCount = args.Length;
+#else
                 if (Globals.IsWindows())
                 {
                     expectedCount = 2;
@@ -132,10 +134,7 @@ namespace PrintApp
 
                 }
 #endif
-#if DEBUG
-                expectedCount = args.Length;
-#endif
-                
+
 
                 if (args.Length <= expectedCount)
                 {
@@ -146,23 +145,26 @@ namespace PrintApp
                             string p = SanitizeInput(param);
                             //p = "rtenant-portal://mobilegroupinc.com/resources/pdf/0000000208.pdf?tenant_id=1&ts_invoice_no=2&v=0.2.0";
                             Globals.Log($"DEBUG ARGS({i}): {p}");
-                            Globals.URLToFile = p;
+                            return p;
 
                         }
                         i++;
 
                     }
+                    return string.Empty;
                 }
                 else
                 {
                     Globals.Log($"ERR: Exit due to argcount {args.Length} vs expected: {expectedCount}");
                     //Console.ReadLine();
                     Environment.Exit(1);
+                    return string.Empty;
                 }
             }
             catch (Exception e)
             {
                 Globals.Log($"Exception: {e.Message}");
+                return string.Empty;
             }
 
 

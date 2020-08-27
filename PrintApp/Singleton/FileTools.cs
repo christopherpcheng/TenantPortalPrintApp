@@ -17,22 +17,24 @@ namespace PrintApp.Singleton
             try
             {
                 Globals.Log($"arg: {fileLink}");
-                string param = fileLink.Replace(Globals.PROTOCOL_APP, Globals.PROTOCOL_HTTP);
+
+                string param = fileLink;
+#if DEBUG                
+                param = fileLink.Replace(Globals.PROTOCOL_APP, Globals.PROTOCOL_HTTP);
+#else
                 param = param.Replace(Globals.PROTOCOL_APP, Globals.PROTOCOL_HTTPS);
-
-
-#if !DEBUG
-                if (param.Contains(Globals.STAGINGDOMAIN))
-                {
-                    Globals.TAGGINGAPI = Globals.TAGGINGAPI.Replace(Globals.LIVEDOMAIN, Globals.STAGINGDOMAIN);
-                    Globals.TAGGINGAPI = Globals.TAGGINGAPI.Replace(Globals.PROTOCOL_HTTPS, Globals.PROTOCOL_HTTP);
-                }
 #endif
+                
+
                 //Globals.TAGGINGAPI = "http://mobilegroupinc.com/index.php/tenantportalapi/API/tenants/update_billing_status";
 
                 if (HTTPTools.Instance.ValidateURL(param))
                 {
                     Uri uri = new Uri(param);
+
+                    //Globals.TAGGINGAPI = uri.Scheme + Uri.SchemeDelimiter + uri.Host + Globals.TAGGINGAPI_PATH;
+                    Globals.TAGGINGAPI = uri.GetLeftPart(UriPartial.Authority) + Globals.TAGGINGAPI_PATH;
+                    Globals.Log($"Constructed Tagging API as {Globals.TAGGINGAPI}");
 
                     Globals.Log($"Found file {param}");
                     //Globals.Log($"Stripped:{param}");
