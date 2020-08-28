@@ -85,11 +85,6 @@ namespace PrintApp
                 Globals.OK = false;
                 Globals.Message = "COULD NOT RETRIEVE BILLING STATEMENT(2)";
             }
-            else if (Globals.OK)
-            {
-
-
-            }
 
 
 
