@@ -1,14 +1,10 @@
-﻿//#define _OSX
-//#undef _WINDOWS
+﻿#define _OSX
+#undef _WINDOWS
 
 using PdfiumPrinter;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Text;
-using System.Runtime.InteropServices;
-using System.Management;
 
 namespace PrintApp.Singleton
 {
@@ -385,7 +381,7 @@ namespace PrintApp.Singleton
                 {
                     string line = process.StandardOutput.ReadLine();
                     line = ParseMacOSPrinterString(line);
-                    if (line == printerName)
+                    if (line.StartsWith(printerName))
                     {
                         Globals.Log($"FOUND printer {line} matching selected {printerName}");
                         found = true;
